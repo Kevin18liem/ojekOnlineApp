@@ -1,0 +1,52 @@
+
+table {
+	background-color: yellowgreen;
+	border: 10px solid green;
+	border-radius: 60px;
+	color : green;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td {
+	padding: 10px;
+	padding-left: 15px;
+}
+
+.table_align {
+	display: table-cell;
+  	vertical-align: middle;
+  	width: 97vw;
+  	height: 97vh;
+}
+
+.headerline {
+	width: 100%;
+	height: 35px;
+	border-bottom: 4px solid green;
+	text-align: center;
+}
+
+.header {
+	font-size: 50px;
+	font-family: "arial black";
+	background-color: yellowgreen;
+	padding: 5px;
+}
+
+.fillin {
+	font-size: 20px;
+	font-family: arial;
+	text-align: left;
+}
+
+input[type=submit] {
+	background-color: greenyellow;
+	border: 2px solid black;
+	border-radius: 10px;
+	padding: 10px;
+	padding-right: 25px;
+	padding-left: 25px;
+	font-size: 20px;
+	font-family: arial;
+}

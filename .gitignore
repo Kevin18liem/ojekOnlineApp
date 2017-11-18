@@ -1,0 +1,12 @@
+# IDE files
+IdentityService/.idea
+OjekService/.idea
+WebApp/.idea
+
+# Executable Folder
+IdentityService/out
+OjekService/out
+WebApp/out
+
+# iml files
+*/*.iml

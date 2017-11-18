@@ -1,0 +1,436 @@
+.layout {
+  	margin: auto;
+    width: 750px;
+    padding: 2px;
+}
+
+.horizontal-view {
+	margin: 0 auto;
+	font-size: 0px;
+}
+
+.two-row-block {
+	position: relative;
+	width: 48%;
+	display:inline-block;
+    padding: 0px;
+}
+
+.title {
+	font-family: "Times";
+	font-size: 60px;
+	color: #634218;
+}
+
+.subtitle{
+	font-family: "Times";
+	font-size: 20px;
+}
+
+.username {
+	text-align: right;
+	width: 100%;
+	font-family:"Tahoma";
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.logout {
+	text-align: right;
+	width: 100%;
+	font-family:"Tahoma";
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.button {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 25px;
+	width: 30%;
+	text-align: center;
+	font-family: "Tahoma";
+	font-weight: bold;
+	margin: 0px;
+	color: black;
+}
+
+.current-button {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 25px;
+	width: 30%;
+	text-align: center;
+	font-family: "Tahoma";
+	font-weight: bold;
+	margin: 0px;
+	background-color: #3b5e3b;
+	color: white;
+}
+
+.number-box {
+	position: relative;
+	bottom: 8px;
+	left: 8px;
+	display: inline-block;
+	background-color: #d4d4d4;
+	width: 36px;
+	height: 36px;
+	font-size: 30px;
+	text-align: center;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.text-box {
+	display: inline-block;
+	padding: 5px;
+	font-size: 20px;
+	width: 60%;
+	text-align: left;
+	font-family: "Trebuchet MS";
+	margin: 0px;
+}
+
+.button-order {
+	display: inline-block;
+	padding: 0px;
+	border: 1px solid black;
+	font-size: 20px;
+	width: 25%;
+	text-align: left;
+	margin: 0px;
+}
+
+.current-button-order {
+	display: inline-block;
+	padding: 0px;
+	border: 1px solid black;
+	font-size: 20px;
+	width: 25%;
+	text-align: left;
+	margin: 0px;
+	background-color: #ffff99;
+}
+
+.button-choose-driver {
+	display: inline-block;
+	vertical-align: bottom;
+	width: 30%;
+	border-radius: 10px;
+	background-color: yellowgreen;
+	border: 1px solid black;
+	font-size: 20px;
+	padding: 10px;
+	text-align: center;
+	font-family: "Courier New";
+	font-weight: bold;
+}
+
+.comment-button {
+	position: relative;
+	left: 580px;
+	border-radius: 10px;
+	background-color: yellowgreen;
+	border: 1px solid black;
+	font-size: 20px;
+	padding: 10px;
+	width: 20%;
+	text-align: center;
+	font-family: "Courier New";
+	font-weight: bold;
+}
+
+.hide-button {
+	position: relative;
+	bottom: 10px;
+	left: 50px;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid black;
+	font-size: 25px;
+	display: inline-block;
+	background-color: #cb0b01;
+	border-radius: 10px;
+	width: 15%;
+	padding: 5px;
+	font-family: "Courier New";
+}
+
+.button-history {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 20px;
+	width: 45%;
+	text-align: center;
+	font-family: "Tahoma";
+	font-weight: bold;
+	margin: 0px;
+	color: black;
+}
+
+.current-button-history {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 20px;
+	width: 45%;
+	text-align: center;
+	font-family: "Tahoma";
+	font-weight: bold;
+	margin: 0px;
+	background-color: #63ca63;
+	color: white;
+}
+
+.profile-img {
+	border-radius:50%;
+	border: 3px solid black;
+	width: 150px;
+	height: 150px;
+	margin: auto; 
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.driver-img {
+	display: inline-block;
+	border: 3px solid black;
+	width: 150px;
+	height: 150px;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.driver-desc {
+	width: 40%;
+	display: inline-block;
+	vertical-align: top;
+	padding:  15px;
+}
+
+.driver-history {
+	position: relative;
+	top: 10px;
+	margin-left: 20px;
+	display: inline-block;
+	width: 70%;
+}
+
+.loc-history {
+	font-family: "Courier New";
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.driver-name {
+	font-family: "Courier New";
+	font-size: 30px;
+}
+
+.driver-rating {
+	font-family: "Trebuchet MS";
+	font-size: 20px;
+}
+
+.date {
+	color:  #a1a1a1;
+	font-size:20px;
+}
+
+.driver-name-history {
+	font-family: "Courier New";
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.driver-rating-history {
+	font-family: "Courier New";
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.driver-comment {
+	font-family: "Trebuchet MS";
+	font-size: 20px;
+}
+
+.shadow-text {
+	color:  #a1a1a1;
+	font-size:30px;
+	padding: 30px;
+	text-align: center;
+}
+
+.driver {
+	box-sizing: border-box;
+	padding: 0 20px 20px 20px;
+}
+
+.driver-round-image {
+	width: 100%;
+	font-size: 2rem;
+}
+
+.comment-box {
+	font-family: "Trebuchet MS";
+	font-size: 20px;
+	margin: 0px;
+	width: 70%;
+	height: 300px;
+}
+
+h1 {
+	font-family: "Impact";
+	font-size: 50px;
+	margin: 5px;
+}
+
+h2 {
+	font-family: "Impact";
+	font-size: 2.5rem;
+	margin: 0;
+	padding: 20px;
+}
+
+h3 {
+	font-family: "Lucida Sans Unicode";
+	font-size: 30px;
+	margin: 5px;
+}
+
+h4 {
+	font-family: "Trebuchet MS";
+	font-size: 20px;
+	margin: 0px;
+}
+
+td {
+	font-family: "Trebuchet MS";
+	font-size: 20px;
+	margin: 0px;
+}
+
+ul {
+	font-family: "Trebuchet MS";
+	font-size: 2.5rem;
+	padding-left:50px;
+	list-style-type: disc;
+	text-align: left;
+	margin: 0;
+}
+
+.edit-form-input {
+	margin: 5px 0;
+	vertical-align: middle;
+}
+
+.edit-form-label {
+	width: 50%;
+	display: inline-block;
+	margin-bottom: 20px;
+	font-family: sans-serif;
+	font-size: 1.5rem;
+}
+
+.file-uploader {
+	padding: 15px;
+	margin-bottom: 30px;
+}
+
+.submit-button, .back-button {
+	display: inline-block;
+	width: 50%;
+}
+
+.submit-button {
+	text-align: right;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+	vertical-align: middle;
+  width: 50px;
+  height: 28px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+textarea {
+	margin-bottom: 20px;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.button-next {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 25px;
+	width: 30%;
+	text-align: center;
+	font-weight: bold;
+	margin: 0px;
+	color: black;
+	background-color: yellowgreen;
+	border-radius: 10px;
+	font-family: "Courier New";
+	white-space: normal;
+}
+
+/* Id Selectors */
+#logout:visited {
+	color: blue;
+}

@@ -1,0 +1,51 @@
+.layout{
+	margin: auto;
+	width: 40%;
+	font-family: "Tahoma"
+}
+
+table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    table-layout: fixed;
+    font-size: 20px;
+}
+
+
+.pencil{
+	color:Orange;
+	display: inline-block;
+}
+
+.x_mark{
+	color:Tomato;
+	display: inline-block;
+}
+
+.text_box{
+	height: 30px; 
+	font-size: 14pt;
+	display: inline-block;
+}
+
+.add_button{
+	font-size: 12pt;
+	background-color: YellowGreen;
+	padding: 10px 24px;
+	border-radius: 8px;
+	border: 1px solid black;
+	margin-left: 20px;
+}
+
+.back_button{
+	font-size: 12pt;
+	background-color: Red;
+	padding: 10px 24px;
+	border-radius: 8px;
+	border: 1px solid black;
+	margin-top: 20px;
+}

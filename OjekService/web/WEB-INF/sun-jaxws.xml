@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+    <endpoint
+            name="Order"
+            implementation="ojeksoap.controller.OrderImpl"
+            url-pattern="/order"/>
+    <endpoint
+            name="Users"
+            implementation="ojeksoap.controller.UsersImpl"
+            url-pattern="/users"/>
+
+    <endpoint
+            name="History"
+            implementation="ojeksoap.controller.HistoryImpl"
+            url-pattern="/history"/>
+
+    <endpoint
+            name="Location"
+            implementation="ojeksoap.controller.LocationImpl"
+            url-pattern="/location"/>
+
+</endpoints>
