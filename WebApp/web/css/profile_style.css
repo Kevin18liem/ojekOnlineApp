@@ -76,9 +76,9 @@
 	left: 8px;
 	display: inline-block;
 	background-color: #d4d4d4;
-	width: 36px;
-	height: 36px;
-	font-size: 30px;
+	width: 25px;
+	height: 25px;
+	font-size: 20px;
 	text-align: center;
 	border-radius: 50%;
 	margin-right: 10px;
@@ -87,8 +87,8 @@
 .text-box {
 	display: inline-block;
 	padding: 5px;
-	font-size: 20px;
-	width: 60%;
+	font-size: 12px;
+	width: 40%;
 	text-align: left;
 	font-family: "Trebuchet MS";
 	margin: 0px;
@@ -98,8 +98,8 @@
 	display: inline-block;
 	padding: 0px;
 	border: 1px solid black;
-	font-size: 20px;
-	width: 25%;
+	font-size: 12px;
+	width: 20%;
 	text-align: left;
 	margin: 0px;
 }
@@ -108,8 +108,8 @@
 	display: inline-block;
 	padding: 0px;
 	border: 1px solid black;
-	font-size: 20px;
-	width: 25%;
+	font-size: 12px;
+	width: 20%;
 	text-align: left;
 	margin: 0px;
 	background-color: #ffff99;
@@ -425,6 +425,36 @@ textarea {
 	margin: 0px;
 	color: black;
 	background-color: yellowgreen;
+	border-radius: 10px;
+	font-family: "Courier New";
+	white-space: normal;
+}
+
+.button-cancel {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 25px;
+	width: 30%;
+	text-align: center;
+	margin: 0px;
+	color: white;
+	background-color: red;
+	border-radius: 10px;
+	font-family: "Courier New";
+	white-space: normal;
+}
+
+.button-find {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 25px;
+	width: 30%;
+	text-align: center;
+	margin: 0px;
+	color: white;
+	background-color: green;
 	border-radius: 10px;
 	font-family: "Courier New";
 	white-space: normal;
