@@ -1,12 +1,8 @@
-<%@ page import="ojeksoap.controller.OrderImplService" %>
-<%@ page import="ojeksoap.controller.Order" %>
-<%@ page import="ojeksoap.controller.UsersImplService" %>
-<%@ page import="ojeksoap.controller.Users" %>
 <%--
   Created by IntelliJ IDEA.
   User: Kezia Suhendra
   Date: 11/21/17
-  Time: 1:51 PM
+  Time: 2:15 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -97,45 +93,15 @@
     </div>
 
     <div class=horizontal-view style="display: inline-block;width: 90%">
-        <h1>MAKE AN ORDER</h1>
+        <h1>LOOKING FOR AN ORDER</h1>
     </div>
 
-    <div class=horizontal-view style="text-align: center;font-size: 60px;margin: 10px">
-        <div class=button-order>
-            <div class=number-box>
-                1
-            </div>
-            <div class=text-box>
-                Select Destination
-            </div>
-        </div>
-        <div class=button-order>
-            <div class=number-box>
-                2
-            </div>
-            <div class=text-box>
-                Select a Driver
-            </div>
-        </div>
-        <div class=current-button-order>
-            <div class=number-box>
-                3
-            </div>
-            <div class=text-box>
-                Chat driver
-            </div>
-        </div>
-        <div class=button-order>
-            <div class=number-box>
-                4
-            </div>
-            <div class=text-box>
-                Complete your order
-            </div>
-        </div>
+    <div class=horizontal-view style="text-align:center;margin-top: 40px">
+        <h3><font color="#32cd32">Got an Order!</font></h3>
+        <h4>namayangorder</h4>
     </div>
 
-    <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 50px">
+    <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 60px">
         <div class="chat-box">
 
         </div>
@@ -146,11 +112,8 @@
             </div>
         </div>
     </div>
-
-    <div class=horizontal-view style="text-align:center;margin-top: 50px">
-        <input type="submit" value="CLOSE" name="cancel-order" class="button-cancel">
-    </div>
 </div>
+
 </body>
 </html>
 

@@ -87,7 +87,7 @@
 .text-box {
 	display: inline-block;
 	padding: 5px;
-	font-size: 12px;
+	font-size: 13px;
 	width: 40%;
 	text-align: left;
 	font-family: "Trebuchet MS";
@@ -98,8 +98,8 @@
 	display: inline-block;
 	padding: 0px;
 	border: 1px solid black;
-	font-size: 12px;
-	width: 20%;
+	font-size: 15px;
+	width: 22%;
 	text-align: left;
 	margin: 0px;
 }
@@ -108,8 +108,8 @@
 	display: inline-block;
 	padding: 0px;
 	border: 1px solid black;
-	font-size: 12px;
-	width: 20%;
+	font-size: 15px;
+	width: 22%;
 	text-align: left;
 	margin: 0px;
 	background-color: #ffff99;
@@ -456,6 +456,49 @@ textarea {
 	color: white;
 	background-color: green;
 	border-radius: 10px;
+	font-family: "Courier New";
+	white-space: normal;
+}
+
+.button-send {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	font-size: 15px;
+	width: 15%;
+	text-align: center;
+	margin: 0px;
+	color: white;
+	background-color: green;
+	border-radius: 10px;
+	font-family: "Courier New";
+	white-space: normal;
+}
+
+.chat-box {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	width: 90%;
+	height: 35%;
+	margin: 0px;
+	background-color: white;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	font-family: "Courier New";
+	white-space: normal;
+}
+
+.input-box {
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid black;
+	width: 90%;
+	height: 6%;
+	margin: 0px;
+	background-color: white;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 	font-family: "Courier New";
 	white-space: normal;
 }
