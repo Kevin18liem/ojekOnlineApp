@@ -26,13 +26,13 @@ public class  User {
         return con;
     }
 
-    public static String checkIsValidUser(String email, String password){
+    public static String checkIsValidUser(String usernameQuery, String password){
         String username = "null";
         try {
             Connection con = getConnection();
 
             Statement stmst = con.createStatement();
-            String query = "SELECT * FROM user WHERE email='" + email + "' and password='" + password + "'";
+            String query = "SELECT * FROM user WHERE username='" + usernameQuery + "' and password='" + password + "'";
             ResultSet res = stmst.executeQuery(query);
 
             //Get Results

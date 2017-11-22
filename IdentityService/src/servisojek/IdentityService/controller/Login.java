@@ -23,10 +23,10 @@ public class Login extends HttpServlet {
             response.setCharacterEncoding("utf-8");
             PrintWriter printWriter = response.getWriter();
 
-            String userEmail = request.getParameterValues("email")[0];
+            String usernameQuery = request.getParameterValues("username")[0];
             String password = request.getParameterValues("password")[0];
 
-            String username = User.checkIsValidUser(userEmail, password);
+            String username = User.checkIsValidUser(usernameQuery, password);
             if(!username.equals("null")){
                 printWriter.println("{\"username\":\"" + username + "\",");
 

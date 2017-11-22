@@ -123,8 +123,10 @@
                     Cookie cookieUsername = new Cookie("username", username.toString());
                     Cookie cookieExpiryDate = new Cookie("expiry_time",expiryDate.toString());
                     Cookie cookieAccessToken = new Cookie("access_token",accessToken.toString());
+                    Cookie cookieIsDriver = new Cookie("isDriver", kodeDriver);
                     response.addCookie(cookieUsername);
                     response.addCookie(cookieAccessToken);
+                    response.addCookie(cookieIsDriver);
                     if(kodeDriver.equals("1")) {
                         response.sendRedirect("profile.jsp");
                     } else {

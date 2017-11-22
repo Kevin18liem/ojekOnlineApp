@@ -75,7 +75,7 @@
 
     <div class=horizontal-view style="text-align: center">
         <a href="order_1.jsp">
-            <div class=button>
+            <div class=current-button>
                 ORDER
             </div>
         </a>
@@ -85,7 +85,7 @@
             </div>
         </a>
         <a href="profile.jsp">
-            <div class="current-button">
+            <div class="button">
                 MY PROFILE
 
             </div>

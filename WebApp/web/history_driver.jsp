@@ -24,6 +24,7 @@
     String username = "";
     String access_token = "";
     String expiry_time = "";
+    String isDriver = "";
     for(Cookie c : cookies){
         if(c.getName().equals("username")){
             username = c.getValue();
@@ -33,6 +34,9 @@
         }
         if(c.getName().equals("expiry_time")){
             expiry_time = c.getValue();
+        }
+        if(c.getName().equals("isDriver")){
+            isDriver  = c.getValue();
         }
     }
     if(username.equals("")){
@@ -80,11 +84,19 @@
         </div>
 
         <div class=horizontal-view style="text-align: center">
+            <% if(isDriver.equals("1")){%>
+            <a href="http://localhost:8000/lookOrder.jsp">
+                <div class=button>
+                    ORDER
+                </div>
+            </a>
+            <% }else{ %>
             <a href="http://localhost:8000/order_1.jsp">
                 <div class=button>
                     ORDER
                 </div>
             </a>
+            <% } %>
             <a href="http://localhost:8000/history.jsp">
                 <div class=current-button>
                     HISTORY
