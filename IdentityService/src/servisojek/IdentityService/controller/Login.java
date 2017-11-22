@@ -37,6 +37,13 @@ public class Login extends HttpServlet {
                     int character = (int)(Math.random()* ALPHA_NUMERIC_STRING.length());
                     builder.append(ALPHA_NUMERIC_STRING.charAt(character));
                 }
+                String userAgent = request.getHeader("User-Agent");
+                String ip = request.getRemoteAddr();
+
+                builder.append('#' + userAgent + '#' + ip);
+                System.out.println(builder.toString());
+                printWriter.println("\"access_token\":\"" + builder.toString() + "\",");
+
                 printWriter.println("\"access_token\":\"" + builder.toString() + "\",");
 
                 //Generate Expiry Time

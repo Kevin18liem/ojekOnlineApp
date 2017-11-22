@@ -39,6 +39,12 @@ public class Register extends HttpServlet {
           builder.append(ALPHA_NUMERIC_STRING.charAt(character));
         }
 
+        String userAgent = request.getHeader("User-Agent");
+        String ip = request.getRemoteAddr();
+
+        builder.append('#' + userAgent + '#' + ip);
+        System.out.println(builder.toString());
+
         //Generate Expiry Time
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar date = Calendar.getInstance();
