@@ -126,6 +126,14 @@
                     3
                 </div>
                 <div class=text-box>
+                    Chat driver
+                </div>
+            </div>
+            <div class=button-order>
+                <div class=number-box>
+                    4
+                </div>
+                <div class=text-box>
                     Complete your order
                 </div>
             </div>
