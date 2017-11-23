@@ -14,8 +14,9 @@
 <head>
     <title>ORDER</title>
     <link rel="stylesheet" type="text/css" href="css/profile_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
-<body>
+<body ng-app = "chatApp" ng-controller="chatController" ng-init="list=[]">
 <%
     /* *** Session Management *** */
     Cookie[] cookies = request.getCookies();
@@ -146,28 +147,58 @@
     </div>
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 50px">
-        <div class="chat-box">
-            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+        <div class="chat-box" schroll-bottom="list">
+            <div class="talk-bubble-me" ng-repeat="item in list" style="margin-left: 67%; text-align: left">
+                {{item.message}}
+            </div>
         </div>
         <div class="input-box">
             <div class=horizontal-view style="display: inline-block;width: 100%;margin: 6px">
-                <input type="text" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium">
-                <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px">
+                <form ng-submit="send()">
+                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium">
+                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px">
+                </form>
             </div>
         </div>
     </div>
 
     <div class=horizontal-view style="text-align:center;margin-top: 50px">
-        <input type="submit" value="CLOSE" name="cancel-order" class="button-cancel">
+        <input type="submit" value="CLOSE" name="complete-order" class="button-cancel" ng-click="go()">
     </div>
 </div>
+<script>
+    angular.module('chatApp', [])
+    .directive('schrollBottom', function () {
+        return {
+            scope: {
+                schrollBottom: "="
+            },
+            link: function (scope, $element) {
+                scope.$watchCollection('schrollBottom', function (newValue) {
+                    if (newValue)
+                    {
+                        $element[0].scrollTop = $element[0].scrollHeight;
+                    }
+                });
+            }
+        }
+    })
+        .controller('chatController', function($scope, $window){
+        $scope.send= function(){
+            if($scope.input!=""){
+                $scope.list.push({sender:'Ani', receiver:'Budi',message:$scope.input});
+                $scope.input="";
+            }
+        }
+
+        $scope.go = function(){
+           var host = $window.location.host;
+           var landingURL = "http://" + host + "/order_3.jsp";
+           $window.location.href = landingURL;
+        }
+    });
+
+</script>
 </body>
 </html>
 

@@ -114,15 +114,7 @@
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 60px">
         <div class="chat-box">
-           <!-- <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div> -->
-            <div class="talk-bubble-you" ng-repeat="item in list" style="margin-left: 67%; text-align: left">
+            <div class="talk-bubble-me" ng-repeat="item in list" style="margin-left: 67%; text-align: left">
                 {{item.message}}
             </div>
         </div>
