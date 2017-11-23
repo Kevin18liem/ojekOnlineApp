@@ -137,11 +137,18 @@
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 50px">
         <div class="chat-box">
-
+            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+            <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-you" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
         </div>
         <div class="input-box">
             <div class=horizontal-view style="display: inline-block;width: 100%;margin: 6px">
-                <input type="text" placeholder="Aa" size="75">
+                <input type="text" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium">
                 <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px">
             </div>
         </div>
