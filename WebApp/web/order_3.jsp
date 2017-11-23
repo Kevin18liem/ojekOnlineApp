@@ -64,8 +64,18 @@
                                 window.location = "index.jsp";
                             }
                         };
-                        xhttp.open("GET", "http://localhost:8001/logout/<%= access_token %>", true);
-                        xhttp.send();
+                        xhttp.open("POST", "http://localhost:8001/logout", true);
+                        xhttp.setRequestHeader("content-type","application/x-www-form-urlencoded");
+                        var nameEQ = "access_token" + "=";
+                        var ca = document.cookie.split(';');
+                        for(var i=0;i < ca.length;i++) {
+                            var c = ca[i];
+                            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                            if (c.indexOf(nameEQ) == 0)
+                                var token = c.substring(nameEQ.length,c.length);
+                        }
+                        var params = "token="+token;
+                        xhttp.send(params);
                         document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                         document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                         document.cookie = "expiry_date=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -241,7 +251,6 @@
             userProfile = result.split("%");
 
             int getId = Integer.parseInt(userProfile[5]);
-
             String res = order.createOrder(access_token, getId,driver,pickup,destination,rating,comment);
             //Check if the order is created, if not, then the session has expired and redirect to login
             if(res.equals("not found") || res.equals("expired")){
