@@ -10,15 +10,15 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "Logout", value = "logout")
 public class Logout extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             PrintWriter printWriter = response.getWriter();
-
-            String token = request.getPathInfo().substring(1);
+            String token = request.getParameterValues("token")[0];
+//            String token = request.getPathInfo().substring(1);
+            System.out.println(token+"halo");
             int res = Session.destroySession(token);
-
             if(res > 0){
                 response.setStatus(200);
                 printWriter.println("{\"Status\":\"Okay\"}");
@@ -36,6 +36,5 @@ public class Logout extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
