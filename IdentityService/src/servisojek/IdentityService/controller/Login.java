@@ -67,9 +67,9 @@ public class Login extends HttpServlet {
             }
 
             //Give access to sender
-            String senderURL = request.getHeader("referer");
-            senderURL = senderURL.substring(0, senderURL.indexOf("8")+4);
-            response.setHeader("Access-Control-Allow-Origin", senderURL);
+//            String senderURL = request.getHeader("referer");
+//            senderURL = senderURL.substring(0, senderURL.indexOf("8")+4);
+//            response.setHeader("Access-Control-Allow-Origin", senderURL);
 
         } catch (Exception e) {
             e.printStackTrace();
