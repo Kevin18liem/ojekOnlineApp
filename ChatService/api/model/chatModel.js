@@ -8,6 +8,9 @@ var TokenSchema = new Schema({
   },
   token: {
     type: String
+  },
+  location: {
+    type: [String]
   }
 });
 
