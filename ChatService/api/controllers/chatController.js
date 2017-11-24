@@ -22,13 +22,21 @@ exports.list_all_chat = function(req, res) {
   });
 };
 
-exports.find_certain_chat = function(req, res) {
+exports.find_certain_chat = function(req, res, next) {
 	var temp = new Pair(req.body);
 	console.log(temp.sender);
 	console.log(temp.receiver);
-	Chat.find({sender : temp.sender , receiver : temp.receiver},function(err, Chat){
+	Chat.find({$or:[{sender : temp.sender , receiver : temp.receiver},{sender : temp.receiver , receiver : temp.sender}]},function(err, Chat){
 		if(err)
 			res.send(err);
 		res.json(Chat);
 	});
+};
+
+exports.delete_all_chat = function(req, res){
+	Chat.remove({}, function(err, Chat){
+		if(err)
+			res.send(err);
+		res.send("All chat deleted");
+	});	
 };
