@@ -4,12 +4,38 @@ var mongoose = require('mongoose');
 var Token = mongoose.model('Token');
 var Chat = mongoose.model('Chat');
 var Pair = mongoose.model('Pair');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("..\\..\\mavericks-d5625-firebase-adminsdk-8bqax-8293dbfcc8.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://mavericks-d5625.firebaseio.com"
+}); 
 
 exports.send_chat = function(req, res){
 	var new_chat = new Chat(req.body);
 	new_chat.save(function(err, new_chat){
 		if(err) return console.error(err);
 		new_chat.validate_saved();
+		var registrationToken = "eH1VjRihORg:APA91bF99ZOuk-i0YoOCgOhxFQXjbaBBic0BqvTDG6g1okVHj5AZjlc7clmuXpNnKph07HZM-CAtaLXbPs1IKXYfU87_fuzhx0YT7PaZrNniwWEcHcTnDVk-yuPmQVQjJadct0o6xakn"
+		var payload = {
+		  data: {
+		    score: "850",
+		    time: "2:45"
+		  }
+		};
+		// // Send a message to the device corresponding to the provided
+		// // registration token.
+		admin.messaging().sendToDevice(registrationToken, payload)
+		  .then(function(response) {
+		    // See the MessagingDevicesResponse reference documentation for
+		    // the contents of response.
+		    console.log("Successfully sent message:", response);
+		  })
+		  .catch(function(error) {
+		    console.log("Error sending message:", error);
+		  });
 		res.send('Saved');
 	});
 };
