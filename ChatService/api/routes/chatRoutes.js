@@ -27,4 +27,15 @@ module.exports = function(app) {
 
   app.route('/deleteAllChat')
   	.delete(chat.delete_all_chat);
+
+  app.route('/changeDriverStatus')
+  	.post(chat.change_driver_status)
+  	.delete(chat.delete_driver_status);
+
+  app.route('/listAllDriver')
+  	.get(chat.list_all_driver);
+
+  app.route('/findCertainLocation')
+  	.post(chat.find_certain_location);
+
 };

@@ -213,7 +213,7 @@
         if(request.getParameter("chooseDriver")!=null){
             session.setAttribute("chosenDriver",request.getParameter("chosenDriver"));
             session.setAttribute("chosenDriverUsername",request.getParameter("chosenDriverUsername"));
-            response.sendRedirect("order_3.jsp");
+            response.sendRedirect("order_4.jsp");
         }
     %>
 </body>
