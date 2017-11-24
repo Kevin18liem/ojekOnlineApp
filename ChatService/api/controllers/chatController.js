@@ -6,7 +6,7 @@ var Chat = mongoose.model('Chat');
 var Pair = mongoose.model('Pair');
 var admin = require("firebase-admin");
 
-var serviceAccount = require("..\\..\\mavericks-d5625-firebase-adminsdk-8bqax-8293dbfcc8.json");
+var serviceAccount = require("../../mavericks-d5625-firebase-adminsdk-8bqax-8293dbfcc8.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

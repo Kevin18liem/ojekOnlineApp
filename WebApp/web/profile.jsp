@@ -27,12 +27,46 @@
             expiry_time = c.getValue();
         }
         if(c.getName().equals("isDriver")){
-          isDriver  = c.getValue();
+            isDriver  = c.getValue();
         }
     }
     if(username.equals("")){
         response.sendRedirect("index.jsp");
     }
+
+    UsersImplService usersImplService = new UsersImplService();
+    Users users = usersImplService.getUsersImplPort();
+    String result = users.getUserByUsername(username);
+    String[] profile = result.split("%");
+
+    for(Cookie c : cookies){
+        if(c.getName().equals("isDriver")){
+            c.setValue(profile[3]);
+            response.addCookie(c);
+        }
+    }
+    for(Cookie c : cookies){
+        if(c.getName().equals("isDriver")){
+            isDriver = c.getValue();
+        }
+    }
+
+    if(profile[3].equals("1")){
+        profile[3] = "Driver ";
+        result = users.getUserRatingAndVotes(username);
+        String[] ratings = result.split("%");
+        profile[3] += "| " + ratings[1] + " " + ratings[2] + " votes";
+    } else {
+        profile[3] = "Non - Driver";
+    }
+
+    LocationImplService locationImplService = new LocationImplService();
+    Location location = locationImplService.getLocationImplPort();
+    result = location.getPreferredLocation(access_token, username);
+    if (result.equals("FORBIDDEN ACCESS")) {
+        result = "";
+    }
+    String[] userLocation = result.split("%");
 %>
 
     <div class=layout>
@@ -111,30 +145,6 @@
                 </div>
             </a>
         </div>
-
-        <%
-            UsersImplService usersImplService = new UsersImplService();
-            Users users = usersImplService.getUsersImplPort();
-            String result = users.getUserByUsername(username);
-            String[] profile = result.split("%");
-
-            if(profile[3].equals("1")){
-                profile[3] = "Driver ";
-                result = users.getUserRatingAndVotes(username);
-                String[] ratings = result.split("%");
-                profile[3] += "| " + ratings[1] + " " + ratings[2] + " votes";
-            } else {
-                profile[3] = "Non - Driver";
-            }
-
-            LocationImplService locationImplService = new LocationImplService();
-            Location location = locationImplService.getLocationImplPort();
-            result = location.getPreferredLocation(access_token, username);
-            if (result.equals("FORBIDDEN ACCESS")) {
-                result = "";
-            }
-            String[] userLocation = result.split("%");
-        %>
 
         <div class=horizontal-view style="display: inline-block;width: 90%">
             <h1>MY PROFILE</h1>
