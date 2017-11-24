@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/profile_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
-<body ng-app = "chatApp" ng-controller="chatController" ng-init="list=[]">
+<body ng-app = "chatApp" ng-controller="chatController">
 <%
     /* *** Session Management *** */
     Cookie[] cookies = request.getCookies();
@@ -114,8 +114,25 @@
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 60px">
         <div class="chat-box">
-            <div class="talk-bubble-me" ng-repeat="item in list" style="margin-left: 67%; text-align: left">
-                {{item.message}}
+           <!-- <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
+            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
+            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div> -->
+            <div ng-repeat="item in list">
+                <div ng-if="item.sender == driver_name">
+                    <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">
+                        {{item.message}}
+                    </div>
+                </div>
+                <div ng-if="item.sender == costumer_name">
+                    <div class="talk-bubble-you" style="margin-right: 67%; text-align: left">
+                        {{item.message}}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="input-box">
@@ -131,13 +148,41 @@
 </div>
 <script>
     var app = angular.module('chatApp', []);
-    app.controller('chatController', function($scope){
+    app.controller('chatController', function($scope, $http){
+        $scope.driver_name = 'driver';
+        $scope.costumer_name = 'costumer';
+
+        var data = {sender:$scope.driver_name, receiver:$scope.costumer_name};
+
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/findCertainChat',
+            data: data
+        }).then(function successCallback(response) {
+            $scope.list = response.data;
+
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+
         $scope.send= function(){
             if($scope.input!=""){
-                $scope.list.push({sender:'Ani', receiver:'Budi',message:$scope.input});
+                $scope.list.push({sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input});
+                var temp = {sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input};
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:3000/sendChat',
+                    data: temp
+                }).then(function successCallback(response) {
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
                 $scope.input="";
             }
-        }
+        };
     });
 </script>
 </body>

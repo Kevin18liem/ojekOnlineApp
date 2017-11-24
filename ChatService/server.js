@@ -9,6 +9,13 @@ var express = require('express'),
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://127.0.0.1:27017'); 
 
+app.use(function(req, res, next){
+		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
+		res.setHeader('Acess-Control-Allow-Credentials', true);
+		next();
+	});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
