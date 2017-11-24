@@ -113,15 +113,7 @@
     </div>
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 60px">
-        <div class="chat-box">
-           <!-- <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div>
-            <div class="talk-bubble-you" style="margin-left: 67%; text-align: left">Sudah dimana?</div>
-            <div class="talk-bubble-me" style="margin-right: 60%; text-align: left">Di gerbang depan.</div> -->
+        <div class="chat-box" schroll-bottom="list">
             <div ng-repeat="item in list">
                 <div ng-if="item.sender == driver_name">
                     <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">
@@ -147,8 +139,8 @@
 
 </div>
 <script>
-    var app = angular.module('chatApp', []);
-    app.controller('chatController', function($scope, $http){
+    var app = angular.module('chatApp', [])
+        app.controller('chatController', function($scope, $http){
         $scope.driver_name = 'driver';
         $scope.costumer_name = 'costumer';
 
@@ -182,8 +174,23 @@
                 });
                 $scope.input="";
             }
-        };
+        }
     });
+    app.directive('schrollBottom', function () {
+        return {
+            scope: {
+                schrollBottom: "="
+            },
+            link: function (scope, $element) {
+                scope.$watchCollection('schrollBottom', function (newValue) {
+                    if (newValue)
+                    {
+                        $element[0].scrollTop = $element[0].scrollHeight;
+                    }
+                });
+            }
+        }
+    })
 </script>
 </body>
 </html>

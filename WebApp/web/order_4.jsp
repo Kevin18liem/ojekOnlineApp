@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/profile_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
-<body ng-app = "chatApp" ng-controller="chatController" ng-init="list=[]">
+<body ng-app = "chatApp" ng-controller="chatController">
 <%
     /* *** Session Management *** */
     Cookie[] cookies = request.getCookies();
@@ -148,8 +148,18 @@
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 50px">
         <div class="chat-box" schroll-bottom="list">
-            <div class="talk-bubble-me" ng-repeat="item in list" style="margin-left: 67%; text-align: left">
-                {{item.message}}
+            <div ng-repeat="item in list">
+                <div ng-if="item.sender == customer_name">
+                    <div class="talk-bubble-me" style="margin-left: 67%; text-align: left">
+                        {{item.message}}
+                    </div>
+                </div>
+
+                <div ng-if="item.sender == driver_name">
+                    <div class="talk-bubble-you" style="margin-right: 67%; text-align: left">
+                        {{item.message}}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="input-box">
@@ -167,36 +177,66 @@
     </div>
 </div>
 <script>
-    angular.module('chatApp', [])
-    .directive('schrollBottom', function () {
-        return {
-            scope: {
-                schrollBottom: "="
-            },
-            link: function (scope, $element) {
-                scope.$watchCollection('schrollBottom', function (newValue) {
-                    if (newValue)
-                    {
-                        $element[0].scrollTop = $element[0].scrollHeight;
-                    }
-                });
-            }
-        }
-    })
-        .controller('chatController', function($scope, $window){
+   var app = angular.module('chatApp', [])
+        app.controller('chatController', function($scope, $window, $http){
+        $scope.driver_name = 'driver';
+        $scope.customer_name = 'costumer';
+
+        var data = {sender:$scope.customer_name, receiver:$scope.driver_name};
+
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/findCertainChat',
+            data: data
+        }).then(function successCallback(response) {
+            $scope.list = response.data;
+
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });    
+
         $scope.send= function(){
             if($scope.input!=""){
-                $scope.list.push({sender:'Ani', receiver:'Budi',message:$scope.input});
+                console.log($scope.customer_name);
+                $scope.list.push({sender:$scope.customer_name, receiver:$scope.driver_name,message:$scope.input});
+                var temp = {sender:$scope.customer_name, receiver:$scope.driver_name,message:$scope.input};
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:3000/sendChat',
+                    data: temp
+                }).then(function successCallback(response) {
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
                 $scope.input="";
             }
         }
 
         $scope.go = function(){
+
            var host = $window.location.host;
            var landingURL = "http://" + host + "/order_3.jsp";
            $window.location.href = landingURL;
         }
     });
+   app.directive('schrollBottom', function () {
+       return {
+           scope: {
+               schrollBottom: "="
+           },
+           link: function (scope, $element) {
+               scope.$watchCollection('schrollBottom', function (newValue) {
+                   if (newValue)
+                   {
+                       $element[0].scrollTop = $element[0].scrollHeight;
+                   }
+               });
+           }
+       }
+   })
 
 </script>
 </body>

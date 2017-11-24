@@ -477,7 +477,7 @@ textarea {
 
 .chat-box {
 	display: inline-block;
-	overflow: hidden;
+	overflow: auto;
 	padding: 10px;
 	border: 1px solid black;
 	width: 90%;
