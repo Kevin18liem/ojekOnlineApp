@@ -6,6 +6,7 @@
 <%@ page import ="java.io.OutputStream" %>
 <%@ page import ="java.net.HttpURLConnection" %>
 <%@ page import ="java.net.URL" %>
+<%@ page import ="org.json.*"%>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -22,11 +23,11 @@
 <body>
 <%
     /* *** Session Management *** */
-    Cookie[] cookies = request.getCookies();
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
     String username = "";
     String access_token = "";
     String expiry_time = "";
-    for(Cookie c : cookies){
+    for(javax.servlet.http.Cookie c : cookies){
         if(c.getName().equals("username")){
             username = c.getValue();
         }
@@ -195,30 +196,23 @@
             OrderImplService orderImplService = new OrderImplService();
             Order order = orderImplService.getOrderImplPort();
 
-            String url = "http://localhost:3000/findCertainLocation";
+            String url = "http://localhost:3000/findCertainLocation?location[0]="+pickup+"&location[1]="+destination;
+
 
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-            con.setRequestMethod("POST");
+            con.setRequestMethod("GET");
             //con.setRequestProperty("User-Agent", USER_AGENT);
 
-            // For POST only - START
-            con.setDoOutput(true);
-            OutputStream os = con.getOutputStream();
-            String POST_PARAMS = "location=\""+ pickup +"\"";
-            os.write(POST_PARAMS.getBytes());
-            os.flush();
-            os.close();
-            // For POST only - END
-
             int responseCode = con.getResponseCode();
-            System.out.println("POST Response Code :: " + responseCode);
+            System.out.println("GET Response Code :: " + responseCode);
 
+            StringBuffer answer = new StringBuffer();
             if (responseCode == HttpURLConnection.HTTP_OK) { //success
                 BufferedReader in = new BufferedReader(new InputStreamReader(
                         con.getInputStream()));
                 String inputLine;
-                StringBuffer answer = new StringBuffer();
+
 
                 while ((inputLine = in.readLine()) != null) {
                     answer.append(inputLine);
@@ -231,9 +225,19 @@
                 System.out.println("POST request not worked");
             }
 
-            String result = order.searchDriver(pickup, destination, preferredDriver);
+            String jsonResult = answer.toString();
 
-            out.println(result);
+            JSONArray array = new JSONArray(jsonResult);
+
+            String result = "";
+            for(int i=0; i<array.length(); i++){
+                String driver_name = array.getJSONObject(i).getString("name");
+                result += order.getDriver(driver_name);
+            }
+
+
+
+            System.out.println(result);
             session.setAttribute("order-data",result);
             session.setAttribute("pickup",pickup);
             session.setAttribute("destination",destination);
