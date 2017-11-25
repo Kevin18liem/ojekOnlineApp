@@ -114,7 +114,50 @@
         <input type="submit" value="CANCEL" name="cancel-order" class="button-cancel">
     </div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
+<script>
+var config = {
+apiKey: "AIzaSyBqH78U1Zw2t7iXKZ3yX5U40ZtQnS98r44",
+authDomain: "mavericks-d5625.firebaseapp.com",
+databaseURL: "https://mavericks-d5625.firebaseio.com",
+projectId: "mavericks-d5625",
+storageBucket: "mavericks-d5625.appspot.com",
+messagingSenderId: "577101336097"
+};
+firebase.initializeApp(config);
 
+const messaging = firebase.messaging();
+
+messaging.requestPermission()
+    .then(function() {
+        console.log('Notification permission granted.');
+    })
+    .catch(function(err) {
+        console.log('Unable to get permission to notify.', err);
+    });
+
+messaging.onMessage(function(payload) {
+    console.log("message received :",payload);
+    if(payload.data.score=="Move to Chat") {
+        window.location.href = "gotOrder.jsp";
+    }
+    console.log(payload.data.score);
+});
+
+function cancelFindingOrder() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200){
+            var text = xhttp.responseText;
+            window.location = "index.jsp";
+        }
+    };
+    var params="<%=username%>";
+    xhttp.open("DELETE", "http://localhost:3000/changeDriverStatus", true);
+    xhttp.setRequestHeader("content-type","application/x-www-form-urlencoded");
+    xhttp.send(params);
+}
+</script>
 </body>
 </html>
-

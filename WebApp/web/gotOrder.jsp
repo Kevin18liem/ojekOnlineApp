@@ -143,6 +143,13 @@
 <script>
     var app = angular.module('chatApp', []);
         app.controller('chatController', function($scope, $http){
+            //SEND REQUEST TO GET USER TOKEN
+//        $http({
+//            method:'GET',
+//            url : 'http://localhost:3000/changeUserStatus',
+//            params: {token:'masukan token'}
+//        });
+            //SEND REQUEST TO GET USER TOKEN
         $scope.driver_name = 'driver';
         $scope.costumer_name = 'costumer';
 
