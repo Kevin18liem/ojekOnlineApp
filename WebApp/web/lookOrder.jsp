@@ -173,6 +173,8 @@
                                 }
                                 String[] userLocation = result.split("%");
                             %>
+
+
                             var listLocation = new Array();
                             <%
                                 for(int i=0;i<userLocation.length;i++) {
@@ -186,7 +188,10 @@
                             var url = "http://localhost:3000/changeDriverStatus";
                             var params = "name=<%=username%>";
                             params +="&token=+"+currentToken;
-                            params += "&location="+listLocation;
+                            var j;
+                            for(j = 0; j<listLocation.length; j++){
+                                params += "&location[" + j + "]=" + listLocation[j] + "&";
+                            }
                             params += "&status=online";
                             http.open("POST", url, true);
                             //Send the proper header information along with the request

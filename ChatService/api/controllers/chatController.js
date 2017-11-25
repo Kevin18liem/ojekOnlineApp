@@ -77,6 +77,18 @@ exports.change_driver_status = function(req, res) {
 	});
 };
 
+exports.set_driver_status_offline = function(req, res){
+	var new_token = new Token(req.body);
+	var conditions = { name: new_token.name }
+  		, update = { $set: { status: "offline" }}
+  		, options = { multi: true };
+
+	Token.update(conditions, update, options, function(err, new_token){
+		if(err) return console.error(err);
+		res.send('Updated');
+	});
+}
+
 exports.delete_driver_status = function(req, res) {
 	var new_token = new Token(req.body);
 	Token.remove({name : new_token.name}, function(err, new_token) {

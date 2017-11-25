@@ -32,6 +32,9 @@ module.exports = function(app) {
   	.post(chat.change_driver_status)
   	.delete(chat.delete_driver_status);
 
+  app.route('/setDriverStatusOffline')
+  	.put(chat.set_driver_status_offline);
+
   app.route('/deleteAllDriver')
   	.delete(chat.delete_all_driver);
 
