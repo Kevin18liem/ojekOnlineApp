@@ -11,6 +11,9 @@ var TokenSchema = new Schema({
   },
   location: {
     type: [String]
+  },
+  status: {
+    type: String
   }
 });
 
@@ -28,6 +31,9 @@ var ChatSchema = new Schema({
   message: {
     type: String,
     required: 'Message can not be empty'
+  },
+  fcmToken: {
+    type: String,
   }
 });
 

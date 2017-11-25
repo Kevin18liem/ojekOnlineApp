@@ -18,10 +18,10 @@ exports.send_chat = function(req, res){
 	new_chat.save(function(err, new_chat){
 		if(err) return console.error(err);
 		new_chat.validate_saved();
-		var registrationToken = "eH1VjRihORg:APA91bF99ZOuk-i0YoOCgOhxFQXjbaBBic0BqvTDG6g1okVHj5AZjlc7clmuXpNnKph07HZM-CAtaLXbPs1IKXYfU87_fuzhx0YT7PaZrNniwWEcHcTnDVk-yuPmQVQjJadct0o6xakn"
+		var registrationToken = new_chat.fcmToken;
 		var payload = {
 		  data: {
-		    score: "850",
+		    score: new_chat.message,
 		    time: "2:45"
 		  }
 		};
