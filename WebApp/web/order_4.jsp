@@ -165,8 +165,8 @@
         <div class="input-box">
             <div class=horizontal-view style="display: inline-block;width: 100%;margin: 6px">
                 <form ng-submit="send()">
-                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium">
-                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px">
+                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium" ng-mouseover="send()">
+                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px" ng-mouseover="send()">
                 </form>
             </div>
         </div>
@@ -185,22 +185,6 @@
         $scope.customer_name = 'costumer';
 
         var data = {sender:$scope.customer_name, receiver:$scope.driver_name};
-//            messaging.onMessage(function(payload) {
-//                $http({
-//                    method: 'POST',
-//                    url: 'http://localhost:3000/findCertainChat',
-//                    data: data
-//                }).then(function successCallback(response) {
-//                    //RECEIVE MESSAGE
-//                    console.log("message received :",payload);
-//                    console.log(payload.data.score);
-//                    // END RECEIVE MESSAGE
-//                    $scope.list = response.data;
-//                }, function errorCallback(response) {
-//                    // called asynchronously if an error occurs
-//                    // or server returns response with an error status.
-//                });
-//            });
         $http({
             method: 'POST',
             url: 'http://localhost:3000/findCertainChat',
@@ -210,7 +194,17 @@
             messaging.onMessage(function(payload) {
                 console.log("message received :",payload);
                 console.log(payload.data.score);
+
+                if (payload.data.score != "") {
+                    $scope.list.push({
+                        sender: $scope.driver_name,
+                        receiver: $scope.customer_name,
+                        message: payload.data.score
+                    });
+                }
+
             });
+            console.log($scope.list);
             // END RECEIVE MESSAGE
             $scope.list = response.data;
 
@@ -225,8 +219,8 @@
                 .then(function(currentToken) {
                     if (currentToken) {
                         console.log('Instance ID token available.', currentToken);
-                        var tokenDriver = "c6O9voilGI4:APA91bHN4Gtn9RNBjJ9ORp8njFFw36VtpwqawITCEUBsxZzqeOEhLL-T8g2lgC3W28CKblQWQMDWrvE37F2rSnMqCLqq-PLyv_lOobSrl8rbMDokJwvUDYhzLhq1pUhKmWQBnOOcc1Bi";
-                        if ($scope.input != "") {
+                        var tokenDriver = "fPauY_Vssw0:APA91bGhs4eLwA9lQNSqqTGkgRCpg2lfJK-1QWjnydysXz8W10W3pSHAYPolmMs8fAZBrcoA2imJPVSDT4aLj1SoTdRL3DpeBjTlN5ElSbZOKpP5Oe4GblAQCActQPj4VzwdY_rrg92u";
+                        if ($scope.input !== undefined) {
                             console.log($scope.customer_name);
                             $scope.list.push({
                                 sender: $scope.customer_name,

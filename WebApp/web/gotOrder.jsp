@@ -130,8 +130,8 @@
         <div class="input-box">
             <div class=horizontal-view style="display: inline-block;width: 100%;margin: 6px">
                 <form ng-submit="send()">
-                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium">
-                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px">
+                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium" ng-mouseover="send()">
+                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px" ng-mouseover="send()">
                 </form>
             </div>
         </div>
@@ -156,6 +156,14 @@
             messaging.onMessage(function(payload) {
                 console.log("message received :",payload);
                 console.log(payload.data.score);
+
+                if (payload.data.score != "") {
+                    $scope.list.push({
+                        sender: $scope.costumer_name,
+                        receiver: $scope.driver_name,
+                        message: payload.data.score
+                    });
+                }
             });
             // END RECEIVE MESSAGE
             $scope.list = response.data;
@@ -171,8 +179,9 @@
                 .then(function(currentToken) {
                         if (currentToken) {
                             console.log('Instance ID token available.',currentToken);
-                            if($scope.input!=""){
-                                var tokenCustomer = "eH1VjRihORg:APA91bF99ZOuk-i0YoOCgOhxFQXjbaBBic0BqvTDG6g1okVHj5AZjlc7clmuXpNnKph07HZM-CAtaLXbPs1IKXYfU87_fuzhx0YT7PaZrNniwWEcHcTnDVk-yuPmQVQjJadct0o6xakn";
+                            console.log($scope.input, "hello");
+                            if($scope.input!==undefined){
+                                var tokenCustomer = "dmbjDV9bjgg:APA91bEJYWVwozbBCnqIfxV3yGoGtyUQq1u9PjRjsJzkkZ6KO9XPh2mRPTYtzOeyhpr4Ht-N3ZNhZ6kwbYTRd3y9qd_10-756DlQ7gJ_809PvbsMxTEAJe9lNlMURuRfjfMk0pdANjuv";
                                 $scope.list.push({sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input});
                                 var temp = {sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input,fcmToken:tokenCustomer};
                                 $http({
