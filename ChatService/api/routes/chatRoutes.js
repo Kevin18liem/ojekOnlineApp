@@ -32,10 +32,13 @@ module.exports = function(app) {
   	.post(chat.change_driver_status)
   	.delete(chat.delete_driver_status);
 
+  app.route('/deleteAllDriver')
+  	.delete(chat.delete_all_driver);
+
   app.route('/listAllDriver')
   	.get(chat.list_all_driver);
 
   app.route('/findCertainLocation')
-  	.post(chat.find_certain_location);
+  	.get(chat.find_certain_location);
 
 };

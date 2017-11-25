@@ -5,6 +5,7 @@ var Token = mongoose.model('Token');
 var Chat = mongoose.model('Chat');
 var Pair = mongoose.model('Pair');
 var admin = require("firebase-admin");
+var url = require('url');
 
 var serviceAccount = require("../../mavericks-d5625-firebase-adminsdk-8bqax-8293dbfcc8.json");
 
@@ -83,6 +84,14 @@ exports.delete_driver_status = function(req, res) {
 	});
 };
 
+exports.delete_all_driver = function(req, res) {
+  Token.remove({}, function(err, Token) {
+    if (err)
+      res.send(err);
+    res.send('All driver deleted');
+  });
+};
+
 exports.list_all_driver = function(req, res) {
   Token.find({}, function(err, Token) {
     if (err)
@@ -92,10 +101,16 @@ exports.list_all_driver = function(req, res) {
 };
 
 exports.find_certain_location = function(req, res) {
-	var new_token = new Token(req.body);
-	Token.find({location: {$in: [new_token.location]}}, function(err, new_token){
+	//var parts = url.parse(req.url, true);
+  	//var query = parts.query;
+
+	var new_token = new Token(req.query);
+	console.log(new_token.location[0]);
+	console.log(new_token.location[1]);
+	Token.find({$or:[{location: {$in: [new_token.location[0]]}},{location: {$in: [new_token.location[1]]}}]}, function(err, new_token){
 		if(err)
 			res.send(err);
-		res.json(new_token);
+		res.send(JSON.stringify(new_token));
+		console.log(new_token);
 	});
 };
