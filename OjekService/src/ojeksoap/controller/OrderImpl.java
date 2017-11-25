@@ -46,4 +46,9 @@ public class OrderImpl implements Order {
     public String searchDriver(String pickup, String destination, String preferredDriver){
         return User.searchDriverByLocation(pickup, destination);
     }
+
+    @Override
+    public String getDriver(String username){
+        return User.searchDriverByUsername(username);
+    }
 }

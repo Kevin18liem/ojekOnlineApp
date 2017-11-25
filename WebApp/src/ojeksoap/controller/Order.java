@@ -26,6 +26,21 @@ public interface Order {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getDriver", targetNamespace = "http://controller.ojeksoap/", className = "ojeksoap.controller.GetDriver")
+    @ResponseWrapper(localName = "getDriverResponse", targetNamespace = "http://controller.ojeksoap/", className = "ojeksoap.controller.GetDriverResponse")
+    @Action(input = "http://controller.ojeksoap/Order/getDriverRequest", output = "http://controller.ojeksoap/Order/getDriverResponse")
+    public String getDriver(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
      * @param arg3
      * @param arg2
      * @param arg5

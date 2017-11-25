@@ -117,6 +117,34 @@ public class User {
         return result.toString();
     }
 
+    public static String searchDriverByUsername(String username){
+        StringBuilder result = new StringBuilder();
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+
+            String sql = "SELECT DISTINCT username, name, image, isDriver FROM user NATURAL JOIN location WHERE username='"+
+                    username+"'";
+            ResultSet res = stmt.executeQuery(sql);
+
+            while(res.next()){
+                result.append(res.getString("username"));
+                result.append("%");
+                result.append(res.getString("name"));
+                result.append("%");
+                result.append(res.getString("image"));
+                result.append("%");
+                result.append(res.getInt("isDriver"));
+                result.append("$");
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result.toString();
+    }
+
     public static String getUserRating(String username){
         StringBuilder rating = new StringBuilder();
         try {

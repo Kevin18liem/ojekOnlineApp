@@ -1,5 +1,12 @@
 <%@ page import="ojeksoap.controller.OrderImplService" %>
-<%@ page import="ojeksoap.controller.Order" %><%--
+<%@ page import="ojeksoap.controller.Order" %>
+<%@ page import ="java.io.BufferedReader" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import ="java.io.InputStreamReader" %>
+<%@ page import ="java.io.OutputStream" %>
+<%@ page import ="java.net.HttpURLConnection" %>
+<%@ page import ="java.net.URL" %>
+<%--
   Created by IntelliJ IDEA.
   User: user
   Date: 11/3/2017
@@ -187,7 +194,45 @@
             // Get the Service
             OrderImplService orderImplService = new OrderImplService();
             Order order = orderImplService.getOrderImplPort();
+
+            String url = "http://localhost:3000/findCertainLocation";
+
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("POST");
+            //con.setRequestProperty("User-Agent", USER_AGENT);
+
+            // For POST only - START
+            con.setDoOutput(true);
+            OutputStream os = con.getOutputStream();
+            String POST_PARAMS = "location=\""+ pickup +"\"";
+            os.write(POST_PARAMS.getBytes());
+            os.flush();
+            os.close();
+            // For POST only - END
+
+            int responseCode = con.getResponseCode();
+            System.out.println("POST Response Code :: " + responseCode);
+
+            if (responseCode == HttpURLConnection.HTTP_OK) { //success
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        con.getInputStream()));
+                String inputLine;
+                StringBuffer answer = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    answer.append(inputLine);
+                }
+                in.close();
+
+                // print result
+                System.out.println(answer.toString());
+            } else {
+                System.out.println("POST request not worked");
+            }
+
             String result = order.searchDriver(pickup, destination, preferredDriver);
+
             out.println(result);
             session.setAttribute("order-data",result);
             session.setAttribute("pickup",pickup);

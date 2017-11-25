@@ -11,4 +11,7 @@ public interface Order {
 
     @WebMethod
     public String searchDriver(String pickup, String destination, String preferredDriver);
+
+    @WebMethod
+    public String getDriver(String username);
 }

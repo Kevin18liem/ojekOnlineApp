@@ -24,14 +24,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetDriverHistoryByUsernameResponse_QNAME = new QName("http://controller.ojeksoap/", "getDriverHistoryByUsernameResponse");
-    private final static QName _HideHistoryByUsernameResponse_QNAME = new QName("http://controller.ojeksoap/", "hideHistoryByUsernameResponse");
-    private final static QName _GetPreviousOrderByUsernameResponse_QNAME = new QName("http://controller.ojeksoap/", "getPreviousOrderByUsernameResponse");
-    private final static QName _HideHistoryByUsername_QNAME = new QName("http://controller.ojeksoap/", "hideHistoryByUsername");
-    private final static QName _HideHistoryDriverById_QNAME = new QName("http://controller.ojeksoap/", "hideHistoryDriverById");
-    private final static QName _HideHistoryDriverByIdResponse_QNAME = new QName("http://controller.ojeksoap/", "hideHistoryDriverByIdResponse");
-    private final static QName _GetPreviousOrderByUsername_QNAME = new QName("http://controller.ojeksoap/", "getPreviousOrderByUsername");
-    private final static QName _GetDriverHistoryByUsername_QNAME = new QName("http://controller.ojeksoap/", "getDriverHistoryByUsername");
+    private final static QName _CreateOrder_QNAME = new QName("http://controller.ojeksoap/", "createOrder");
+    private final static QName _GetDriverResponse_QNAME = new QName("http://controller.ojeksoap/", "getDriverResponse");
+    private final static QName _SearchDriverResponse_QNAME = new QName("http://controller.ojeksoap/", "searchDriverResponse");
+    private final static QName _SearchDriver_QNAME = new QName("http://controller.ojeksoap/", "searchDriver");
+    private final static QName _CreateOrderResponse_QNAME = new QName("http://controller.ojeksoap/", "createOrderResponse");
+    private final static QName _GetDriver_QNAME = new QName("http://controller.ojeksoap/", "getDriver");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ojeksoap.controller
@@ -41,139 +39,105 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetDriverHistoryByUsernameResponse }
+     * Create an instance of {@link CreateOrder }
      * 
      */
-    public GetDriverHistoryByUsernameResponse createGetDriverHistoryByUsernameResponse() {
-        return new GetDriverHistoryByUsernameResponse();
+    public CreateOrder createCreateOrder() {
+        return new CreateOrder();
     }
 
     /**
-     * Create an instance of {@link HideHistoryByUsernameResponse }
+     * Create an instance of {@link GetDriverResponse }
      * 
      */
-    public HideHistoryByUsernameResponse createHideHistoryByUsernameResponse() {
-        return new HideHistoryByUsernameResponse();
+    public GetDriverResponse createGetDriverResponse() {
+        return new GetDriverResponse();
     }
 
     /**
-     * Create an instance of {@link GetPreviousOrderByUsernameResponse }
+     * Create an instance of {@link SearchDriverResponse }
      * 
      */
-    public GetPreviousOrderByUsernameResponse createGetPreviousOrderByUsernameResponse() {
-        return new GetPreviousOrderByUsernameResponse();
+    public SearchDriverResponse createSearchDriverResponse() {
+        return new SearchDriverResponse();
     }
 
     /**
-     * Create an instance of {@link HideHistoryByUsername }
+     * Create an instance of {@link SearchDriver }
      * 
      */
-    public HideHistoryByUsername createHideHistoryByUsername() {
-        return new HideHistoryByUsername();
+    public SearchDriver createSearchDriver() {
+        return new SearchDriver();
     }
 
     /**
-     * Create an instance of {@link HideHistoryDriverById }
+     * Create an instance of {@link CreateOrderResponse }
      * 
      */
-    public HideHistoryDriverById createHideHistoryDriverById() {
-        return new HideHistoryDriverById();
+    public CreateOrderResponse createCreateOrderResponse() {
+        return new CreateOrderResponse();
     }
 
     /**
-     * Create an instance of {@link HideHistoryDriverByIdResponse }
+     * Create an instance of {@link GetDriver }
      * 
      */
-    public HideHistoryDriverByIdResponse createHideHistoryDriverByIdResponse() {
-        return new HideHistoryDriverByIdResponse();
+    public GetDriver createGetDriver() {
+        return new GetDriver();
     }
 
     /**
-     * Create an instance of {@link GetPreviousOrderByUsername }
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateOrder }{@code >}}
      * 
      */
-    public GetPreviousOrderByUsername createGetPreviousOrderByUsername() {
-        return new GetPreviousOrderByUsername();
+    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "createOrder")
+    public JAXBElement<CreateOrder> createCreateOrder(CreateOrder value) {
+        return new JAXBElement<CreateOrder>(_CreateOrder_QNAME, CreateOrder.class, null, value);
     }
 
     /**
-     * Create an instance of {@link GetDriverHistoryByUsername }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetDriverResponse }{@code >}}
      * 
      */
-    public GetDriverHistoryByUsername createGetDriverHistoryByUsername() {
-        return new GetDriverHistoryByUsername();
+    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "getDriverResponse")
+    public JAXBElement<GetDriverResponse> createGetDriverResponse(GetDriverResponse value) {
+        return new JAXBElement<GetDriverResponse>(_GetDriverResponse_QNAME, GetDriverResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetDriverHistoryByUsernameResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchDriverResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "getDriverHistoryByUsernameResponse")
-    public JAXBElement<GetDriverHistoryByUsernameResponse> createGetDriverHistoryByUsernameResponse(GetDriverHistoryByUsernameResponse value) {
-        return new JAXBElement<GetDriverHistoryByUsernameResponse>(_GetDriverHistoryByUsernameResponse_QNAME, GetDriverHistoryByUsernameResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "searchDriverResponse")
+    public JAXBElement<SearchDriverResponse> createSearchDriverResponse(SearchDriverResponse value) {
+        return new JAXBElement<SearchDriverResponse>(_SearchDriverResponse_QNAME, SearchDriverResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HideHistoryByUsernameResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchDriver }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "hideHistoryByUsernameResponse")
-    public JAXBElement<HideHistoryByUsernameResponse> createHideHistoryByUsernameResponse(HideHistoryByUsernameResponse value) {
-        return new JAXBElement<HideHistoryByUsernameResponse>(_HideHistoryByUsernameResponse_QNAME, HideHistoryByUsernameResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "searchDriver")
+    public JAXBElement<SearchDriver> createSearchDriver(SearchDriver value) {
+        return new JAXBElement<SearchDriver>(_SearchDriver_QNAME, SearchDriver.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetPreviousOrderByUsernameResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateOrderResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "getPreviousOrderByUsernameResponse")
-    public JAXBElement<GetPreviousOrderByUsernameResponse> createGetPreviousOrderByUsernameResponse(GetPreviousOrderByUsernameResponse value) {
-        return new JAXBElement<GetPreviousOrderByUsernameResponse>(_GetPreviousOrderByUsernameResponse_QNAME, GetPreviousOrderByUsernameResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "createOrderResponse")
+    public JAXBElement<CreateOrderResponse> createCreateOrderResponse(CreateOrderResponse value) {
+        return new JAXBElement<CreateOrderResponse>(_CreateOrderResponse_QNAME, CreateOrderResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HideHistoryByUsername }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetDriver }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "hideHistoryByUsername")
-    public JAXBElement<HideHistoryByUsername> createHideHistoryByUsername(HideHistoryByUsername value) {
-        return new JAXBElement<HideHistoryByUsername>(_HideHistoryByUsername_QNAME, HideHistoryByUsername.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HideHistoryDriverById }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "hideHistoryDriverById")
-    public JAXBElement<HideHistoryDriverById> createHideHistoryDriverById(HideHistoryDriverById value) {
-        return new JAXBElement<HideHistoryDriverById>(_HideHistoryDriverById_QNAME, HideHistoryDriverById.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HideHistoryDriverByIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "hideHistoryDriverByIdResponse")
-    public JAXBElement<HideHistoryDriverByIdResponse> createHideHistoryDriverByIdResponse(HideHistoryDriverByIdResponse value) {
-        return new JAXBElement<HideHistoryDriverByIdResponse>(_HideHistoryDriverByIdResponse_QNAME, HideHistoryDriverByIdResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetPreviousOrderByUsername }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "getPreviousOrderByUsername")
-    public JAXBElement<GetPreviousOrderByUsername> createGetPreviousOrderByUsername(GetPreviousOrderByUsername value) {
-        return new JAXBElement<GetPreviousOrderByUsername>(_GetPreviousOrderByUsername_QNAME, GetPreviousOrderByUsername.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetDriverHistoryByUsername }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "getDriverHistoryByUsername")
-    public JAXBElement<GetDriverHistoryByUsername> createGetDriverHistoryByUsername(GetDriverHistoryByUsername value) {
-        return new JAXBElement<GetDriverHistoryByUsername>(_GetDriverHistoryByUsername_QNAME, GetDriverHistoryByUsername.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.ojeksoap/", name = "getDriver")
+    public JAXBElement<GetDriver> createGetDriver(GetDriver value) {
+        return new JAXBElement<GetDriver>(_GetDriver_QNAME, GetDriver.class, null, value);
     }
 
 }
