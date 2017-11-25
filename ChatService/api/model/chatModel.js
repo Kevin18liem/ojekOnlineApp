@@ -53,6 +53,19 @@ var PairSchema = new Schema({
   }
 });
 
+var userSchema = new Schema({
+  name: {
+    type: String
+  },
+  token: {
+    type: String
+  },
+  status: {
+    type: String
+  }
+});
+
 module.exports = mongoose.model('Token', TokenSchema);
 module.exports = mongoose.model('Chat', ChatSchema);
 module.exports = mongoose.model('Pair', PairSchema);
+module.exports = mongoose.model('userSchema', userSchema);

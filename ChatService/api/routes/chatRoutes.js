@@ -41,4 +41,12 @@ module.exports = function(app) {
   app.route('/findCertainLocation')
   	.get(chat.find_certain_location);
 
+  app.route('/notifyDriver')
+  .post(chat.notify_driver);
+
+  app.route('/changeUserStatus')
+    .post(chat.change_user_status)
+    .delete(chat.delete_user_status)
+    .get(chat.get_user_status)
+
 };
