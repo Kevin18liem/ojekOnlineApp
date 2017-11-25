@@ -176,6 +176,8 @@
         <input type="submit" value="CLOSE" name="complete-order" class="button-cancel" ng-click="go()">
     </div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
 <script>
    var app = angular.module('chatApp', [])
         app.controller('chatController', function($scope, $window, $http){
@@ -183,36 +185,78 @@
         $scope.customer_name = 'costumer';
 
         var data = {sender:$scope.customer_name, receiver:$scope.driver_name};
-
+//            messaging.onMessage(function(payload) {
+//                $http({
+//                    method: 'POST',
+//                    url: 'http://localhost:3000/findCertainChat',
+//                    data: data
+//                }).then(function successCallback(response) {
+//                    //RECEIVE MESSAGE
+//                    console.log("message received :",payload);
+//                    console.log(payload.data.score);
+//                    // END RECEIVE MESSAGE
+//                    $scope.list = response.data;
+//                }, function errorCallback(response) {
+//                    // called asynchronously if an error occurs
+//                    // or server returns response with an error status.
+//                });
+//            });
         $http({
             method: 'POST',
             url: 'http://localhost:3000/findCertainChat',
             data: data
         }).then(function successCallback(response) {
+            //RECEIVE MESSAGE
+            messaging.onMessage(function(payload) {
+                console.log("message received :",payload);
+                console.log(payload.data.score);
+            });
+            // END RECEIVE MESSAGE
             $scope.list = response.data;
 
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-        });    
+        });
 
         $scope.send= function(){
-            if($scope.input!=""){
-                console.log($scope.customer_name);
-                $scope.list.push({sender:$scope.customer_name, receiver:$scope.driver_name,message:$scope.input});
-                var temp = {sender:$scope.customer_name, receiver:$scope.driver_name,message:$scope.input};
-                $http({
-                    method: 'POST',
-                    url: 'http://localhost:3000/sendChat',
-                    data: temp
-                }).then(function successCallback(response) {
+            generateFCMToken();
+            messaging.getToken()
+                .then(function(currentToken) {
+                    if (currentToken) {
+                        console.log('Instance ID token available.', currentToken);
+                        var tokenDriver = "c6O9voilGI4:APA91bHN4Gtn9RNBjJ9ORp8njFFw36VtpwqawITCEUBsxZzqeOEhLL-T8g2lgC3W28CKblQWQMDWrvE37F2rSnMqCLqq-PLyv_lOobSrl8rbMDokJwvUDYhzLhq1pUhKmWQBnOOcc1Bi";
+                        if ($scope.input != "") {
+                            console.log($scope.customer_name);
+                            $scope.list.push({
+                                sender: $scope.customer_name,
+                                receiver: $scope.driver_name,
+                                message: $scope.input
+                            });
+                            var temp = {
+                                sender: $scope.customer_name,
+                                receiver: $scope.driver_name,
+                                message: $scope.input,
+                                fcmToken: tokenDriver
+                            };
+                            $http({
+                                method: 'POST',
+                                url: 'http://localhost:3000/sendChat',
+                                data: temp
+                            }).then(function successCallback(response) {
 
-                }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                            }, function errorCallback(response) {
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                            });
+                            $scope.input = "";
+                        } else {
+                            console.log('No Instance ID token available. Request permission to generate one.');
+                        }
+                    }
+                }).catch(function(err) {
+                console.log('An error occurred while retrieving token. ', err);
                 });
-                $scope.input="";
-            }
         }
 
         $scope.go = function(){
@@ -237,6 +281,70 @@
            }
        }
    })
+
+   var config = {
+       apiKey: "AIzaSyBqH78U1Zw2t7iXKZ3yX5U40ZtQnS98r44",
+       authDomain: "mavericks-d5625.firebaseapp.com",
+       databaseURL: "https://mavericks-d5625.firebaseio.com",
+       projectId: "mavericks-d5625",
+       storageBucket: "mavericks-d5625.appspot.com",
+       messagingSenderId: "577101336097"
+   };
+   firebase.initializeApp(config);
+
+   const messaging = firebase.messaging();
+
+   function generateFCMToken() {
+       // REQUEST PERMISSION
+       console.log('Requesting permission...');
+       // [START request_permission]
+       messaging.requestPermission()
+           .then(function() {
+               console.log('Notification permission granted.');
+               // TODO(developer): Retrieve an Instance ID token for use with FCM.
+               // [START_EXCLUDE]
+               // In many cases once an app has been granted notification permission, it
+               // should update its UI reflecting this.
+//                resetUI();
+//                messaging.getToken()
+//                    .then(function(currentToken) {
+//                        if (currentToken) {
+//                            console.log('Instance ID token available.',currentToken);
+//                            return currentToken;
+//                        } else {
+//                            console.log('No Instance ID token available. Request permission to generate one.');
+//                        }
+//                    })
+//                    .catch(function(err) {
+//                        console.log('An error occurred while retrieving token. ', err);
+//                    });
+
+               // [END_EXCLUDE]
+           })
+           .catch(function(err) {
+               console.log('Unable to get permission to notify.', err);
+           });
+       // END REQUEST PERMISSION
+   }
+//   messaging.onTokenRefresh(function() {
+//       messaging.getToken()
+//           .then(function(refreshedToken) {
+//               console.log('Token refreshed.'+refreshedToken);
+//               // Indicate that the new Instance ID token has not yet been sent to the
+//               // app server.
+//               //                setTokenSentToServer(false);
+//               // Send Instance ID token to app server.
+//               //                sendTokenToServer(refreshedToken);
+//               // [START_EXCLUDE]
+//               // Display new Instance ID token and clear UI of all previous messages.
+////               resetUI();
+//               // [END_EXCLUDE]
+//           })
+//           .catch(function(err) {
+//               console.log('Unable to retrieve refreshed token ', err);
+//               //                showToken('Unable to retrieve refreshed token ', err);
+//           });
+//   });
 
 </script>
 </body>

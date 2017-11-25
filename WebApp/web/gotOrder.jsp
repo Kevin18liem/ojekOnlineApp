@@ -138,19 +138,26 @@
     </div>
 
 </div>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
 <script>
-    var app = angular.module('chatApp', [])
+    var app = angular.module('chatApp', []);
         app.controller('chatController', function($scope, $http){
         $scope.driver_name = 'driver';
         $scope.costumer_name = 'costumer';
 
         var data = {sender:$scope.driver_name, receiver:$scope.costumer_name};
-
         $http({
             method: 'POST',
             url: 'http://localhost:3000/findCertainChat',
             data: data
         }).then(function successCallback(response) {
+            //RECEIVE MESSAGE
+            messaging.onMessage(function(payload) {
+                console.log("message received :",payload);
+                console.log(payload.data.score);
+            });
+            // END RECEIVE MESSAGE
             $scope.list = response.data;
 
         }, function errorCallback(response) {
@@ -159,21 +166,34 @@
         });
 
         $scope.send= function(){
-            if($scope.input!=""){
-                $scope.list.push({sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input});
-                var temp = {sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input};
-                $http({
-                    method: 'POST',
-                    url: 'http://localhost:3000/sendChat',
-                    data: temp
-                }).then(function successCallback(response) {
+            generateFCMToken();
+            messaging.getToken()
+                .then(function(currentToken) {
+                        if (currentToken) {
+                            console.log('Instance ID token available.',currentToken);
+                            if($scope.input!=""){
+                                var tokenCustomer = "eH1VjRihORg:APA91bF99ZOuk-i0YoOCgOhxFQXjbaBBic0BqvTDG6g1okVHj5AZjlc7clmuXpNnKph07HZM-CAtaLXbPs1IKXYfU87_fuzhx0YT7PaZrNniwWEcHcTnDVk-yuPmQVQjJadct0o6xakn";
+                                $scope.list.push({sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input});
+                                var temp = {sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input,fcmToken:tokenCustomer};
+                                $http({
+                                    method: 'POST',
+                                    url: 'http://localhost:3000/sendChat',
+                                    data: temp
+                                }).then(function successCallback(response) {
 
-                }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-                $scope.input="";
-            }
+                                }, function errorCallback(response) {
+                                    // called asynchronously if an error occurs
+                                    // or server returns response with an error status.
+                                });
+                                $scope.input="";
+                            }
+                        } else {
+                            console.log('No Instance ID token available. Request permission to generate one.');
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log('An error occurred while retrieving token. ', err);
+                    });
         }
     });
     app.directive('schrollBottom', function () {
@@ -190,7 +210,54 @@
                 });
             }
         }
-    })
+    });
+    var config = {
+        apiKey: "AIzaSyBqH78U1Zw2t7iXKZ3yX5U40ZtQnS98r44",
+        authDomain: "mavericks-d5625.firebaseapp.com",
+        databaseURL: "https://mavericks-d5625.firebaseio.com",
+        projectId: "mavericks-d5625",
+        storageBucket: "mavericks-d5625.appspot.com",
+        messagingSenderId: "577101336097"
+    };
+    firebase.initializeApp(config);
+
+    const messaging = firebase.messaging();
+
+    function generateFCMToken() {
+
+        // REQUEST PERMISSION
+        console.log('Requesting permission...');
+        // [START request_permission]
+        messaging.requestPermission()
+            .then(function() {
+                console.log('Notification permission granted.');
+                // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                // [START_EXCLUDE]
+                // In many cases once an app has been granted notification permission, it
+                // should update its UI reflecting this.
+//                resetUI();
+//                messaging.getToken()
+//                    .then(function(currentToken) {
+//                        if (currentToken) {
+//                            console.log('Instance ID token available.',currentToken);
+//                            return currentToken;
+//                        } else {
+//                            console.log('No Instance ID token available. Request permission to generate one.');
+//                        }
+//                    })
+//                    .catch(function(err) {
+//                        console.log('An error occurred while retrieving token. ', err);
+//                    });
+
+                // [END_EXCLUDE]
+            })
+            .catch(function(err) {
+                console.log('Unable to get permission to notify.', err);
+            });
+        // END REQUEST PERMISSION
+    }
+
+
 </script>
 </body>
 </html>
