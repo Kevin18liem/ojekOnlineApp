@@ -52,8 +52,6 @@ exports.list_all_chat = function(req, res) {
 
 exports.find_certain_chat = function(req, res, next) {
 	var temp = new Pair(req.body);
-	console.log(temp.sender);
-	console.log(temp.receiver);
 	Chat.find({$or:[{sender : temp.sender , receiver : temp.receiver},{sender : temp.receiver , receiver : temp.sender}]},function(err, Chat){
 		if(err)
 			res.send(err);
@@ -91,6 +89,7 @@ exports.set_driver_status_offline = function(req, res){
 
 exports.delete_driver_status = function(req, res) {
 	var new_token = new Token(req.body);
+	console.log(new_token.name);
 	Token.remove({name : new_token.name}, function(err, new_token) {
 		if (err) return console.error(err);
 		res.send('Driver Status Offline')
@@ -114,42 +113,43 @@ exports.list_all_driver = function(req, res) {
 };
 
 exports.find_certain_location = function(req, res) {
-	//var parts = url.parse(req.url, true);
-  	//var query = parts.query;
-
 	var new_token = new Token(req.query);
-	console.log(new_token.location[0]);
-	console.log(new_token.location[1]);
 	Token.find({$or:[{location: {$in: [new_token.location[0]]}},{location: {$in: [new_token.location[1]]}}]}, function(err, new_token){
 		if(err)
 			res.send(err);
 		res.send(JSON.stringify(new_token));
-		console.log(new_token);
+		// console.log(new_token);
 	});
 };
 
 
 exports.notify_driver = function(req,res) {
-	var newToken = new Token(req.body);
-	var registrationToken = "eH1VjRihORg:APA91bF99ZOuk-i0YoOCgOhxFQXjbaBBic0BqvTDG6g1okVHj5AZjlc7clmuXpNnKph07HZM-CAtaLXbPs1IKXYfU87_fuzhx0YT7PaZrNniwWEcHcTnDVk-yuPmQVQjJadct0o6xakn";
-	var payload = {
-	  data: {
-	    score: "Move to Chat",
-	    time: "2:45"
-	  }
-	};
-	// // Send a message to the device corresponding to the provided
-	// // registration token.
-	admin.messaging().sendToDevice(registrationToken, payload)
-	  .then(function(response) {
-	    // See the MessagingDevicesResponse reference documentation for
-	    // the contents of response.
-	    console.log("Successfully sent message:", response);
-	  })
-	  .catch(function(error) {
-	    console.log("Error sending message:", error);
-	  });
-	res.send('Saved');
+	var user_status = new userSchema(req.body);
+	Token.find({name:user_status.name}, function(err, Token) {
+		if(err)
+			res.send(err);
+		else {
+			var registrationToken = Token[0].token;
+			var payload = {
+			  data: {
+			    score: "Move to Chat",
+			    pelanggan: user_status.token
+			  }
+			};
+			// // Send a message to the device corresponding to the provided
+			// // registration token.
+			admin.messaging().sendToDevice(registrationToken, payload)
+			  .then(function(response) {
+			    // See the MessagingDevicesResponse reference documentation for
+			    // the contents of response.
+			    // console.log("Successfully sent message:", response);
+			  })
+			  .catch(function(error) {
+			    // console.log("Error sending message:", error);
+			  });
+			res.send('notify_driver send');
+		}
+	});	
 }
 
 exports.change_user_status = function(req, res) {
@@ -161,18 +161,32 @@ exports.change_user_status = function(req, res) {
 };
 
 exports.delete_user_status = function(req, res) {
-	var new_token = new userSchema(req.body);
-	Token.remove({name : new_token.name}, function(err, new_token) {
+	var user = new userSchema(req.body);
+	userSchema.remove({name:user.name}, function(err, user) {
 		if (err) return console.error(err);
 		res.send('Status User Offline')
 	});
 };
 
 exports.get_user_status = function(req, res) {
-	var user_status = new userSchema(req.body);
-	Token.find({token: user_status.token}, function(err, user_status) {
+	var user_status = new userSchema(req.query);
+	// console.log("parameternya masuk"+user_status.name);
+	userSchema.find({name:user_status.name}, function(err, user_status) {
 		if(err)
 			res.send(err);
+		// res.send(user_status);
+		// res.send('ketemu');
 		res.json(user_status);
 	});
-};
+}; 
+
+exports.get_driver_status = function(req, res) {
+	var driver_status = new Token(req.query);
+	Token.find({name:driver_status.name}, function(err, driver_status) {
+		if(err)
+			res.send(err);
+		// res.send(user_status);
+		// res.send('ketemu');
+		res.json(driver_status);
+	});
+}; 
