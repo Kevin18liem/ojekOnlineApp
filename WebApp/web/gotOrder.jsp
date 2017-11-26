@@ -19,6 +19,7 @@
     String username = "";
     String access_token = "";
     String expiry_time = "";
+    String userCustomer = "";
     for(Cookie c : cookies){
         if(c.getName().equals("username")){
             username = c.getValue();
@@ -28,6 +29,9 @@
         }
         if(c.getName().equals("expiry_time")){
             expiry_time = c.getValue();
+        }
+        if(c.getName().equals("userCustomer")) {
+            userCustomer = c.getValue();
         }
     }
     if(username.equals("")){
@@ -109,7 +113,7 @@
 
     <div class=horizontal-view style="text-align:center;margin-top: 40px">
         <h3><font color="#32cd32">Got an Order!</font></h3>
-        <h4>namayangorder</h4>
+        <%out.println("<h4>"+userCustomer+"</h4>");%>
     </div>
 
     <div class="horizontal-view" style="text-align: center;width: 100%;margin-top: 60px">
@@ -142,17 +146,22 @@
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
 <script>
     var app = angular.module('chatApp', []);
-        app.controller('chatController', function($scope, $http){
-            //SEND REQUEST TO GET USER TOKEN
-//        $http({
-//            method:'GET',
-//            url : 'http://localhost:3000/changeUserStatus',
-//            params: {token:'masukan token'}
-//        });
-            //SEND REQUEST TO GET USER TOKEN
-        $scope.driver_name = 'driver';
-        $scope.costumer_name = 'costumer';
+    app.controller('chatController', function($scope, $http){
+        //SEND REQUEST TO GET USER TOKEN
+        var userCookies ='<%=userCustomer%>';
+        var request =
+            $http({
+                method:'GET',
+                url : 'http://localhost:3000/changeUserStatus',
+                params: {name: userCookies}
+            }).then(function successCallback(response) {
+                return (response.data);
+            }, function errorCallback(response) {
 
+            });
+
+        $scope.driver_name = '<%=username%>';
+        $scope.costumer_name = userCookies;
         var data = {sender:$scope.driver_name, receiver:$scope.costumer_name};
         $http({
             method: 'POST',
@@ -176,21 +185,29 @@
             $scope.list = response.data;
 
         }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+
         });
 
         $scope.send= function(){
             generateFCMToken();
             messaging.getToken()
                 .then(function(currentToken) {
-                        if (currentToken) {
-                            console.log('Instance ID token available.',currentToken);
-                            console.log($scope.input, "hello");
-                            if($scope.input!==undefined){
-                                var tokenCustomer = "dmbjDV9bjgg:APA91bEJYWVwozbBCnqIfxV3yGoGtyUQq1u9PjRjsJzkkZ6KO9XPh2mRPTYtzOeyhpr4Ht-N3ZNhZ6kwbYTRd3y9qd_10-756DlQ7gJ_809PvbsMxTEAJe9lNlMURuRfjfMk0pdANjuv";
-                                $scope.list.push({sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input});
-                                var temp = {sender:$scope.driver_name, receiver:$scope.costumer_name,message:$scope.input,fcmToken:tokenCustomer};
+                    if (currentToken) {
+                        console.log('Instance ID token available.',currentToken);
+                        console.log($scope.input, "hello");
+                        if($scope.input!==undefined){
+                            request.then(function(data){
+                                $scope.list.push({
+                                    sender:$scope.driver_name,
+                                    receiver:$scope.costumer_name,
+                                    message:$scope.input
+                                });
+                                var temp = {
+                                    sender:$scope.driver_name,
+                                    receiver:$scope.costumer_name,
+                                    message:$scope.input,
+                                    fcmToken:data[0].token
+                                };
                                 $http({
                                     method: 'POST',
                                     url: 'http://localhost:3000/sendChat',
@@ -202,14 +219,16 @@
                                     // or server returns response with an error status.
                                 });
                                 $scope.input="";
-                            }
+                            });
+
                         } else {
                             console.log('No Instance ID token available. Request permission to generate one.');
                         }
-                    })
-                    .catch(function(err) {
-                        console.log('An error occurred while retrieving token. ', err);
-                    });
+                    }
+                })
+                .catch(function(err) {
+                    console.log('An error occurred while retrieving token. ', err);
+                });
         }
     });
     app.directive('schrollBottom', function () {
@@ -247,33 +266,12 @@
         messaging.requestPermission()
             .then(function() {
                 console.log('Notification permission granted.');
-                // TODO(developer): Retrieve an Instance ID token for use with FCM.
-                // [START_EXCLUDE]
-                // In many cases once an app has been granted notification permission, it
-                // should update its UI reflecting this.
-//                resetUI();
-//                messaging.getToken()
-//                    .then(function(currentToken) {
-//                        if (currentToken) {
-//                            console.log('Instance ID token available.',currentToken);
-//                            return currentToken;
-//                        } else {
-//                            console.log('No Instance ID token available. Request permission to generate one.');
-//                        }
-//                    })
-//                    .catch(function(err) {
-//                        console.log('An error occurred while retrieving token. ', err);
-//                    });
-
-                // [END_EXCLUDE]
             })
             .catch(function(err) {
                 console.log('Unable to get permission to notify.', err);
             });
         // END REQUEST PERMISSION
     }
-
-
 </script>
 </body>
 </html>
