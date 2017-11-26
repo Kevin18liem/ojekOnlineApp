@@ -111,7 +111,7 @@
     </div>
 
     <div class=horizontal-view style="text-align:center;margin-top: 160px">
-        <input type="submit" value="CANCEL" name="cancel-order" class="button-cancel">
+        <input type="submit" value="CANCEL" name="cancel-order" class="button-cancel" onclick="cancelFindingOrder()">
     </div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
@@ -140,6 +140,9 @@ messaging.requestPermission()
 messaging.onMessage(function(payload) {
     console.log("message received :",payload);
     if(payload.data.score=="Move to Chat") {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + 2);
+        document.cookie = "userCustomer="+payload.data.pelanggan;
         window.location.href = "gotOrder.jsp";
     }
     console.log(payload.data.score);
@@ -150,10 +153,10 @@ function cancelFindingOrder() {
     xhttp.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200){
             var text = xhttp.responseText;
-            window.location = "index.jsp";
+            window.location.href = "lookOrder.jsp";
         }
     };
-    var params="<%=username%>";
+    var params="name=<%=username%>";
     xhttp.open("DELETE", "http://localhost:3000/changeDriverStatus", true);
     xhttp.setRequestHeader("content-type","application/x-www-form-urlencoded");
     xhttp.send(params);
