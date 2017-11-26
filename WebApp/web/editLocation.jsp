@@ -76,7 +76,7 @@
 
                 if(request.getParameter("next-page-delete") != null) {
                     String newLocation = request.getParameter("location");
-                    deleteResult = location.deletePreferredLocation(access_token+'#'+userAgent+'#'+ip, username ,newLocation);
+                    deleteResult = location.deletePreferredLocation(access_token, username ,newLocation);
                     if (!deleteResult.equals("FORBIDDEN ACCESS")) {
                         response.sendRedirect("editLocation.jsp");
                     }
@@ -95,7 +95,7 @@
                 <%
                     if(request.getParameter("next-page-add") != null) {
                         String newLocation = request.getParameter("location");
-                        addResult = location.addPreferredLocation(access_token+'#'+userAgent+'#'+ip, username, newLocation);
+                        addResult = location.addPreferredLocation(access_token, username, newLocation);
                         if (!addResult.equals("FORBIDDEN ACCESS")) {
                             response.sendRedirect("editLocation.jsp");
                         }
@@ -130,7 +130,7 @@
         if(request.getParameter("next-page-edit") != null) {
             String oldLocation = request.getParameter("oldLocation");
             String newLocation = request.getParameter("newLocation");
-            editResult = location.editPreferredLocation(access_token+'#'+userAgent+'#'+ip, username,oldLocation,newLocation);
+            editResult = location.editPreferredLocation(access_token, username,oldLocation,newLocation);
             if (!editResult.equals("FORBIDDEN ACCESS")) {
                 response.sendRedirect("editLocation.jsp");
             }
