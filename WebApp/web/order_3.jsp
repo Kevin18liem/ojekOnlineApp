@@ -254,7 +254,7 @@
             String res = order.createOrder(access_token, getId,driver,pickup,destination,rating,comment);
             //Check if the order is created, if not, then the session has expired and redirect to login
             if(res.equals("not found") || res.equals("expired")){
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("profile.jsp");
             } else {
                 response.sendRedirect("order_1.jsp");
             }

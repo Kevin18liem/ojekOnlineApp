@@ -201,7 +201,7 @@
                                 driverDetail[2] +"\')\"></div><div class='driver-desc'><div class='driver-name'>"+ driverDetail[1] +
                                 "</div><div class='driver-rating'>"+ratings[1]+" "+ ratings[2]+" votes</div></div>" +
                                 "<input type='submit' name='chooseDriver' class='button-choose-driver' value=" +
-                                "'I CHOOSE YOU!' onclick='return choose("+ratings[0]+",\""+driverDetail[0]+"\");' /></div>");
+                                "'I CHOOSE YOU!' onclick='return choose("+ratings[0]+",\""+driverDetail[0]+"\""+",\""+username+"\");' /></div>");
                     }
                 }
             %>
