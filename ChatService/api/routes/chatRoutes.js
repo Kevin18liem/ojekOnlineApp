@@ -56,4 +56,7 @@ module.exports = function(app) {
   app.route('/listAllUser')
     .get(chat.list_all_user);
 
+  app.route('/notifyCloseChat')
+    .post(chat.notify_close_chat);
+
 };

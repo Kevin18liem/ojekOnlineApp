@@ -202,3 +202,38 @@ exports.list_all_user = function(req, res) {
     res.json(userSchema);
   });
 };
+
+exports.notify_close_chat = function(req,res) {
+	var user_status = new userSchema(req.body);
+	userSchema.remove({name:user_status.name}, function(err, user) {
+		if (err) return console.error(err);
+	});
+	Token.find({name:user_status.token}, function(err, Token) {
+			console.log(Token[0].token);
+			var registrationToken = Token[0].token;
+			var payload = {
+			  data: {
+			    score: "Close Chat",
+			    pelanggan: user_status.token
+			  }
+			};
+			// // Send a message to the device corresponding to the provided
+			// // registration token.
+			admin.messaging().sendToDevice(registrationToken, payload)
+			  .then(function(response) {
+			    // See the MessagingDevicesResponse reference documentation for
+			    // the contents of response.
+			    // console.log("Successfully sent message:", response);
+			    
+			  })
+			  .catch(function(error) {
+			    // console.log("Error sending message:", error);
+			  });
+			
+	});	
+	Token.remove({name : user_status.token}, function(err, Token) {
+		if (err) return console.error(err);
+		res.send('Chat closed');
+	});
+}
+
