@@ -192,9 +192,9 @@
             generateFCMToken();
             messaging.getToken()
                 .then(function(currentToken) {
-                    if (currentToken) {
+                    if (currentToken && $scope.input !== "") {
                         console.log('Instance ID token available.',currentToken);
-                        console.log($scope.input, "hello");
+                        //console.log($scope.input, "hello");
                         if($scope.input!==undefined){
                             request.then(function(data){
                                 $scope.list.push({

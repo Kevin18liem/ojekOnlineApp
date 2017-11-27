@@ -231,7 +231,7 @@
                 generateFCMToken();
                 messaging.getToken()
                     .then(function(currentToken) {
-                        if (currentToken) {
+                        if (currentToken && $scope.input !== "") {
                             console.log('Instance ID token available.', currentToken);
                             var tokenDriver = "fPauY_Vssw0:APA91bGhs4eLwA9lQNSqqTGkgRCpg2lfJK-1QWjnydysXz8W10W3pSHAYPolmMs8fAZBrcoA2imJPVSDT4aLj1SoTdRL3DpeBjTlN5ElSbZOKpP5Oe4GblAQCActQPj4VzwdY_rrg92u";
                             if ($scope.input !== undefined) {
