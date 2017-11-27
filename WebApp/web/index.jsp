@@ -4,7 +4,8 @@
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="ojeksoap.controller.UsersImplService" %>
-<%@ page import="ojeksoap.controller.Users" %><%--
+<%@ page import="ojeksoap.controller.Users" %>
+<%@ page import="java.net.URLEncoder" %><%--
   Created by IntelliJ IDEA.
   User: Trevin Matthew R
   Date: 11/3/2017
@@ -51,7 +52,8 @@
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Accept-Language","en-US,en,q=0.5");
-            String urlParameters = "username="+request.getParameter("username")+"&"+"password="+request.getParameter("password");
+            String userAgent = request.getHeader("User-Agent");
+            String urlParameters = "username="+request.getParameter("username")+"&"+"password="+request.getParameter("password")+"&"+"useragent="+userAgent;
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(urlParameters);
@@ -77,7 +79,8 @@
 
                 responseString.deleteCharAt(0);
                 responseString.deleteCharAt(responseString.length()-1);
-                String[] responseList = responseString.toString().split("\\,");
+                System.out.println(responseString.toString());
+                String[] responseList = responseString.toString().split("\\?");
                 if(responseList.length>1) {
                     StringBuffer username = new StringBuffer(responseList[0].split("\\:")[1]);
                     username.deleteCharAt(0);
@@ -93,7 +96,7 @@
                     out.println(expiryDate.toString());
                     Cookie cookieUsername = new Cookie("username", username.toString());
                     Cookie cookieExpiryDate = new Cookie("expiry_time",expiryDate.toString());
-                    Cookie cookieAccessToken = new Cookie("access_token",accessToken.toString());
+                    Cookie cookieAccessToken = new Cookie("access_token",URLEncoder.encode(accessToken.toString(), "UTF-8"));
                     Cookie cookieIsDriver = new Cookie("isDriver", profile[3]);
                     response.addCookie(cookieUsername);
                     response.addCookie(cookieAccessToken);
