@@ -89,7 +89,7 @@
     </div>
 
     <div class=horizontal-view style="text-align: center">
-        <a href="order_1.jsp">
+        <a href="lookOrder.jsp">
             <div class=current-button>
                 ORDER
             </div>
@@ -146,7 +146,7 @@
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
 <script>
     var app = angular.module('chatApp', []);
-    app.controller('chatController', function($scope, $http){
+    app.controller('chatController', function($scope, $http, $window){
         //SEND REQUEST TO GET USER TOKEN
         var userCookies ='<%=userCustomer%>';
         var request =
@@ -173,7 +173,10 @@
                 console.log("message received :",payload);
                 console.log(payload.data.score);
 
-                if (payload.data.score !== undefined) {
+                if(payload.data.score === "Close Chat") {
+                    console.log("test");
+                    window.location.href = "lookOrder.jsp";
+                } else if (payload.data.score !== undefined) {
                     $scope.list.push({
                         sender: $scope.costumer_name,
                         receiver: $scope.driver_name,

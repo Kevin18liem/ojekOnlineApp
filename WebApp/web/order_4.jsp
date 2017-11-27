@@ -269,7 +269,23 @@
                     });
             }
             $scope.go = function(){
-               $window.location.href = "order_3.jsp";
+
+                var param = {
+                    name: $scope.customer_name,
+                    token: 'pikachu'
+                };
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:3000/notifyCloseChat',
+                    data: param
+                }).then(function successCallback(response) {
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+
+                $window.location.href = "order_3.jsp";
             }
     });
    app.directive('schrollBottom', function () {
