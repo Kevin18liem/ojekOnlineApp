@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 
 @WebServlet(name = "Logout", value = "logout")
 public class Logout extends HttpServlet {
