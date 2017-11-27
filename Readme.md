@@ -110,8 +110,6 @@ Halaman Order pada Pengguna, Chat Driver
 
 ![](img/pengguna_chat_driver.png)
 
-Perlu diperhatikan bahwa chat yang dikirim oleh user yang sedang login berada disisi sebelah kanan dan lawan chatnya lain di sisi sebelah kirim. Isi chat jga harus ditampilkan sesuai urutan waktu diterima (paling atas adalah chat paling lama dan makin ke bawah chat makin baru).
-
 ### Referensi Terkait
 Berikut adalah referensi yang dapat Anda baca terkait tugas ini:
 1. https://firebase.google.com/docs/web/setup
@@ -122,13 +120,20 @@ Berikut adalah referensi yang dapat Anda baca terkait tugas ini:
 ### Pembagian Tugas
 
 Chat App Front-end :
-1. Fungsionalitas A : 135140XX  
-2. Fungsionalitas B : 135140XX  
+1. Fungsionalitas Find Order : 13515063 
+2. Fungsionalitas Look Order : 13515138 
+3. Fungsionalitas Chat Driver : 13515054
+4. Fungsionalitas Chat Customer : 13515063
+5. Fungsionalitas Select Driver : 13515054
 
 Chat REST Service:  
-1. Fungsionalitas C : 135140XX  
-2. Fungsionalitas D : 135140XX  
+1. Fungsionalitas Send Chat : 13515138  
+2. Fungsionalitas Retrieve Chat : 13515054 
+3. Fungsionalitas Save Chat : 13515054
+4. Fungsionalitas Driver Status : 13515063
+5. Fungsionalitas Customer Status : 13515138
 
 Fitur security (IP, User-agent) :
-1. Fungsionalitas E : 135140XX
-2. Fungsionalitas F : 135140XX
+1. Fungsionalitas Validasi : 13515054
+2. Fungsionalitas Generate Token : 13515138
+3. Fungsionalitas Access Token : 13515063
