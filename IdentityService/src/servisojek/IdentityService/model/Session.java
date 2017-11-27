@@ -1,6 +1,7 @@
 package servisojek.IdentityService.model;
 
 
+import java.net.URLDecoder;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,9 +29,9 @@ public class Session {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM session WHERE token='" + token + "'";
+            String sql = "SELECT * FROM session WHERE token='" + URLDecoder.decode(token, "UTF-8") + "'";
             ResultSet res = stmt.executeQuery(sql);
-
+            System.out.println("Validate:" + URLDecoder.decode(token, "UTF-8"));
             while(res.next()){
                 Timestamp expiry = res.getTimestamp("expiry");
                 Date date = new Date(expiry.getTime());
@@ -43,7 +44,7 @@ public class Session {
                         Calendar dateNow = Calendar.getInstance();
                         dateNow.add(Calendar.MINUTE,60);
                         String expiryDate = dateFormat.format(dateNow.getTime());
-                        sql = "UPDATE session SET expiry='"+ expiryDate +"' WHERE token='"+token+"'";
+                        sql = "UPDATE session SET expiry='"+ expiryDate +"' WHERE token='"+ URLDecoder.decode(token, "UTF-8")+"'";
                         int row = stmt.executeUpdate(sql);
                         if(row>0)
                             result="valid";
@@ -79,8 +80,8 @@ public class Session {
         try {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
-
-            String sql = "DELETE FROM session WHERE token='"+token+"'";
+            System.out.println("Destroy:" + URLDecoder.decode(token, "UTF-8"));
+            String sql = "DELETE FROM session WHERE token='"+URLDecoder.decode(token, "UTF-8")+"'";
             row = stmt.executeUpdate(sql);
         } catch (Exception e){
             e.printStackTrace();
