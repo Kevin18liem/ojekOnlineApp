@@ -134,8 +134,8 @@
         <div class="input-box">
             <div class=horizontal-view style="display: inline-block;width: 100%;margin: 6px">
                 <form ng-submit="send()">
-                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium" ng-mouseover="send()">
-                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px" ng-mouseover="send()">
+                    <input type="text" ng-model="input" placeholder="Type Your Message Here" size="50" style="border-color: transparent; border: none; font-size: medium" ng-mouseenter="send()">
+                    <input type="submit" value="KIRIM" name="next-page" class="button-send" style="margin-left: 15px" ng-mouseenter="send()">
                 </form>
             </div>
         </div>
@@ -173,7 +173,7 @@
                 console.log("message received :",payload);
                 console.log(payload.data.score);
 
-                if (payload.data.score != "") {
+                if (payload.data.score !== undefined) {
                     $scope.list.push({
                         sender: $scope.costumer_name,
                         receiver: $scope.driver_name,

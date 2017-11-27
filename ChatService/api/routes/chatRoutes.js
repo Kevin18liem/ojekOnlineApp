@@ -53,4 +53,7 @@ module.exports = function(app) {
     .delete(chat.delete_user_status)
     .get(chat.get_user_status)
 
+  app.route('/listAllUser')
+    .get(chat.list_all_user);
+
 };

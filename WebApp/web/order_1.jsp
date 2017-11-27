@@ -22,6 +22,7 @@
 </head>
 <body>
 <%
+    String TokenUser ="";
     /* *** Session Management *** */
     javax.servlet.http.Cookie[] cookies = request.getCookies();
     String username = "";
@@ -36,6 +37,9 @@
         }
         if(c.getName().equals("expiry_time")){
             expiry_time = c.getValue();
+        }
+        if(c.getName().equals("userToken")) {
+            TokenUser = c.getValue();
         }
     }
     if(username.equals("")){
@@ -173,6 +177,8 @@
 
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
     <script>
         function validateForm() {
             if(document.forms["orderForm"]["from"].value == "") {
@@ -184,6 +190,26 @@
                 return false;
             }
         }
+
+        var config = {
+            apiKey: "AIzaSyBqH78U1Zw2t7iXKZ3yX5U40ZtQnS98r44",
+            authDomain: "mavericks-d5625.firebaseapp.com",
+            databaseURL: "https://mavericks-d5625.firebaseio.com",
+            projectId: "mavericks-d5625",
+            storageBucket: "mavericks-d5625.appspot.com",
+            messagingSenderId: "577101336097"
+        };
+        firebase.initializeApp(config);
+
+        const messaging = firebase.messaging();
+
+        messaging.getToken()
+            .then(function(currentToken) {
+                if (currentToken) {
+                    document.cookie = "userToken="+currentToken;
+                    console.log('Instance ID token available.', currentToken);
+                }
+            });
     </script>
 
     <%
@@ -196,7 +222,7 @@
             OrderImplService orderImplService = new OrderImplService();
             Order order = orderImplService.getOrderImplPort();
 
-            String url = "http://localhost:3000/findCertainLocation?location[0]="+pickup+"&location[1]="+destination;
+            String url = "http://localhost:3000/findCertainLocation?location[0]="+pickup+"&location[1]="+destination+"&name="+username+"&token="+TokenUser+"&status=online";
 
 
             URL obj = new URL(url);

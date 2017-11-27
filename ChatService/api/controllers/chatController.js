@@ -113,6 +113,10 @@ exports.list_all_driver = function(req, res) {
 };
 
 exports.find_certain_location = function(req, res) {
+	var user_status = new userSchema(req.query);
+	user_status.save(function(err, user_status) {
+		if (err) return console.error(err);
+	});
 	var new_token = new Token(req.query);
 	Token.find({$or:[{location: {$in: [new_token.location[0]]}},{location: {$in: [new_token.location[1]]}}]}, function(err, new_token){
 		if(err)
@@ -190,3 +194,11 @@ exports.get_driver_status = function(req, res) {
 		res.json(driver_status);
 	});
 }; 
+
+exports.list_all_user = function(req, res) {
+  userSchema.find({}, function(err, userSchema) {
+    if (err)
+      res.send(err);
+    res.json(userSchema);
+  });
+};
