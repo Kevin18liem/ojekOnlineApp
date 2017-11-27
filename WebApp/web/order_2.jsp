@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="ojeksoap.controller.UsersImplService" %>
 <%@ page import="ojeksoap.controller.Users" %>
+<%@ page import="com.sun.org.apache.xpath.internal.operations.Bool" %>
 <html>
 <head>
     <title>ORDER</title>
@@ -186,24 +187,29 @@
         <div class=horizontal-view style="margin-top:20px; border: 2px solid black;border-radius:10px">
             <h2>OTHER DRIVERS</h2>
             <%
-                for(String d : drivers){
-                    String[] driverDetail = d.split("%");
-                    //Name and isDriver
-                    if(!driverDetail[1].equals(preferredDriver) && Integer.parseInt(driverDetail[3]) == 1){
-                        //Get driver rating
-                        UsersImplService userService = new UsersImplService();
-                        Users users = userService.getUsersImplPort();
-                        String result = users.getUserRatingAndVotes(driverDetail[0]);
+                if(!data.equals("")) {
+                    for(String d : drivers){
+                        String[] driverDetail = d.split("%");
+                        //Name and isDriver
+                        if(!driverDetail[1].equals(preferredDriver) && Integer.parseInt(driverDetail[3]) == 1){
+                            //Get driver rating
+                            UsersImplService userService = new UsersImplService();
+                            Users users = userService.getUsersImplPort();
+                            String result = users.getUserRatingAndVotes(driverDetail[0]);
 
-                        String[] ratings = result.split("%");
+                            String[] ratings = result.split("%");
 
-                        out.println("<div class='driver'><div class='driver-img' style=\"background-image: url(\'img/"+
-                                driverDetail[2] +"\')\"></div><div class='driver-desc'><div class='driver-name'>"+ driverDetail[1] +
-                                "</div><div class='driver-rating'>"+ratings[1]+" "+ ratings[2]+" votes</div></div>" +
-                                "<input type='submit' name='chooseDriver' class='button-choose-driver' value=" +
-                                "'I CHOOSE YOU!' onclick='return choose("+ratings[0]+",\""+driverDetail[0]+"\""+",\""+username+"\");' /></div>");
+                            out.println("<div class='driver'><div class='driver-img' style=\"background-image: url(\'img/"+
+                                    driverDetail[2] +"\')\"></div><div class='driver-desc'><div class='driver-name'>"+ driverDetail[1] +
+                                    "</div><div class='driver-rating'>"+ratings[1]+" "+ ratings[2]+" votes</div></div>" +
+                                    "<input type='submit' name='chooseDriver' class='button-choose-driver' value=" +
+                                    "'I CHOOSE YOU!' onclick='return choose("+ratings[0]+",\""+driverDetail[0]+"\""+",\""+username+"\");' /></div>");
+                        }
                     }
+                } else {
+                    out.println("<div class='shadow-text'>Nothing to display :(</div>");
                 }
+
             %>
         </div>
         </form>

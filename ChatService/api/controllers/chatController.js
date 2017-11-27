@@ -118,7 +118,7 @@ exports.find_certain_location = function(req, res) {
 		if (err) return console.error(err);
 	});
 	var new_token = new Token(req.query);
-	Token.find({$or:[{location: {$in: [new_token.location[0]]}},{location: {$in: [new_token.location[1]]}}]}, function(err, new_token){
+	Token.find({$and: [{$or:[{location: {$in: [new_token.location[0]]}},{location: {$in: [new_token.location[1]]}}]},{status: "online"}]}, function(err, new_token){
 		if(err)
 			res.send(err);
 		res.send(JSON.stringify(new_token));
@@ -129,6 +129,13 @@ exports.find_certain_location = function(req, res) {
 
 exports.notify_driver = function(req,res) {
 	var user_status = new userSchema(req.body);
+	var conditions = { name: user_status.name }
+  		, update = { $set: { status: "offline" }}
+  		, options = { multi: true };
+
+	Token.update(conditions, update, options, function(err, new_token){
+		if(err) return console.error(err);
+	});
 	Token.find({name:user_status.name}, function(err, Token) {
 		if(err)
 			res.send(err);
