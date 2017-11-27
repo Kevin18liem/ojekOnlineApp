@@ -18,6 +18,7 @@ public class SessionSOAPImpl implements SessionSOAP {
 
             //Get the session from database
             result = Session.validateSession(token, expTime);
+            System.out.println("Result:" + result);
         } catch (Exception e) {
             e.printStackTrace();
         }
