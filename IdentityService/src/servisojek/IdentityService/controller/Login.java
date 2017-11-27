@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
 
             String username = User.checkIsValidUser(usernameQuery, password);
             if(!username.equals("null")){
-                printWriter.println("{\"username\":\"" + username + "\",");
+                printWriter.println("{\"username\":\"" + username + "\"?");
 
                 //Generate Access Token
                 StringBuilder builder = new StringBuilder();
@@ -37,14 +37,15 @@ public class Login extends HttpServlet {
                     int character = (int)(Math.random()* ALPHA_NUMERIC_STRING.length());
                     builder.append(ALPHA_NUMERIC_STRING.charAt(character));
                 }
-                String userAgent = request.getHeader("User-Agent");
+
+                String userAgent = request.getParameterValues("useragent")[0];;
                 String ip = request.getRemoteAddr();
 
                 builder.append('#' + userAgent + '#' + ip);
                 System.out.println(builder.toString());
-                printWriter.println("\"access_token\":\"" + builder.toString() + "\",");
+                printWriter.println("\"access_token\":\"" + builder.toString() + "\"?");
 
-                printWriter.println("\"access_token\":\"" + builder.toString() + "\",");
+                printWriter.println("\"access_token\":\"" + builder.toString() + "\"?");
 
                 //Generate Expiry Time
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
