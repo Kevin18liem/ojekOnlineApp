@@ -96,11 +96,11 @@ Token tidak perlu dienkripsi-dekripsi (for simplicity)
 ### Tampilan Program
 Halaman Order pada Driver
 
-![](img/driver_halaman_order.png)
+![](img/lookOrder.png)
 
 Halaman Order pada Driver Ketika Melakukan Finding Order
 
-![](img/driver_finding_order.png)
+![](img/findOrder.png)
 
 Halaman Order pada Driver Ketika Mendapat Order
 
