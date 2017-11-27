@@ -104,11 +104,11 @@ Halaman Order pada Driver Ketika Melakukan Finding Order
 
 Halaman Order pada Driver Ketika Mendapat Order
 
-![](img/driver_got_order.png)
+![](img/gotOrder.png)
 
 Halaman Order pada Pengguna, Chat Driver
 
-![](img/pengguna_chat_driver.png)
+![](img/chatDriver.png)
 
 ### Referensi Terkait
 Berikut adalah referensi yang dapat Anda baca terkait tugas ini:

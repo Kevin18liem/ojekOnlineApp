@@ -272,7 +272,7 @@
 
                 var param = {
                     name: $scope.customer_name,
-                    token: 'pikachu'
+                    token: $scope.driver_name
                 };
                 $http({
                     method: 'POST',
